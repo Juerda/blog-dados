@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Blog - Todos os Artigos{% endblock %}
+
+{% block meta_description %}Todos os artigos do blog {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <header class="blog-header">
+        <h1>Blog</h1>
+        <p>Explore análises e insights sobre dados</p>
+    </header>
+
+    <div class="blog-content">
+        <div class="articles-list-full">
+            {% for article in articles %}
+            <article class="blog-item">
+                <div class="blog-item-content">
+                    <div class="blog-item-meta">
+                        <span class="category-badge">{{ article.category }}</span>
+                        <time>{{ article.locale_date }}</time>
+                    </div>
+                    <h2 class="blog-item-title">
+                        <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a>
+                    </h2>
+                    <p class="blog-item-excerpt">
+                        {% if article.summary %}
+                            {{ article.summary|striptags|truncate(200) }}
+                        {% else %}
+                            {{ article.content|striptags|truncate(200) }}
+                        {% endif %}
+                    </p>
+                    <a href="{{ SITEURL }}/{{ article.url }}" class="read-link">Ler artigo completo →</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

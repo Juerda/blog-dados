@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} - {{ SITENAME }}{% endblock %}
+
+{% block meta_description %}{{ page.summary|striptags if page.summary else page.content[:150]|striptags }}{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <article class="page-article">
+        <h1 class="page-title">{{ page.title }}</h1>
+        <div class="page-body">
+            {{ page.content }}
+        </div>
+    </article>
+    
+    <div class="back-button-section">
+        <a href="/" class="back-button">
+            <i class="fas fa-arrow-left"></i> Voltar para Home
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} - {{ SITENAME }}{% endblock %}
+
+{% block meta_description %}{{ article.summary|striptags if article.summary else article.content[:150]|striptags }}{% endblock %}
+
+{% block content %}
+<div class="article-container">
+    <article class="article-full">
+        <header class="article-header">
+            <div class="article-meta-top">
+                <span class="category-badge">{{ article.category }}</span>
+                <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
+            </div>
+            <h1 class="article-title">{{ article.title }}</h1>
+            <p class="article-author">Por {{ article.author if article.author else AUTHOR }}</p>
+        </header>
+
+        <div class="article-body">
+            {{ article.content }}
+        </div>
+
+        {% if article.tags %}
+        <footer class="article-tags">
+            <h4>Tags:</h4>
+            <ul>
+                {% for tag in article.tags %}
+                <li><a href="/tag/{{ tag|replace(' ', '-')|lower }}.html">#{{ tag }}</a></li>
+                {% endfor %}
+            </ul>
+        </footer>
+        {% endif %}
+    </article>
+
+    <!-- Navigation -->
+    {% if article.prev_article or article.next_article %}
+    <nav class="article-nav">
+        {% if article.prev_article %}
+        <a href="/{{ article.prev_article.url }}" class="nav-prev">
+            <i class="fas fa-chevron-left"></i>
+            <div>
+                <span class="nav-label">Post Anterior</span>
+                <span class="nav-title">{{ article.prev_article.title }}</span>
+            </div>
+        </a>
+        {% endif %}
+        
+        {% if article.next_article %}
+        <a href="/{{ article.next_article.url }}" class="nav-next">
+            <div>
+                <span class="nav-label">Próximo Post</span>
+                <span class="nav-title">{{ article.next_article.title }}</span>
+            </div>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+        {% endif %}
+    </nav>
+    {% endif %}
+
+    <!-- Back Button -->
+    <div class="back-button-section">
+        <a href="/blog.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Voltar ao Blog
+        </a>
+    </div>
+</div>
+{% endblock %}

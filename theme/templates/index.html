@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}{{ SITENAME }} - Análises de Dados{% endblock %}
+
+{% block meta_description %}Bem-vindo ao {{ SITENAME }}. Análises e insights sobre dados para pessoas comuns.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">{{ SITENAME }}</h1>
+            <p class="hero-subtitle">Explorando dados, descobrindo histórias</p>
+            <p class="hero-description">Análises acessíveis sobre tendências e padrões que importam para pessoas como você</p>
+            <a href="{{ SITEURL }}/blog.html" class="cta-button">Ver Todos os Artigos</a>
+        </div>
+        <div class="hero-illustration">
+            <i class="fas fa-chart-pie"></i>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Articles -->
+<section class="featured-articles">
+    <div class="container">
+        <h2 class="section-title">Artigos em Destaque</h2>
+        <div class="articles-grid">
+            {% for article in articles[:3] %}
+            <article class="article-card featured">
+                <div class="article-card-header">
+                    <div class="article-category">{{ article.category }}</div>
+                    <time class="article-date">{{ article.locale_date }}</time>
+                </div>
+                <h3 class="article-card-title">{{ article.title }}</h3>
+                <p class="article-card-excerpt">
+                    {% if article.summary %}
+                        {{ article.summary|striptags|truncate(150) }}
+                    {% else %}
+                        {{ article.content|striptags|truncate(150) }}
+                    {% endif %}
+                </p>
+                <a href="{{ SITEURL }}/{{ article.url }}" class="read-more">Ler mais →</a>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Why Data Matters -->
+<section class="why-section">
+    <div class="container">
+        <h2 class="section-title">Por Que Dados Importam?</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Entender Tendências</h3>
+                <p>Identifique padrões e mudanças no mundo ao seu redor através de dados</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3>Tomar Decisões</h3>
+                <p>Tome decisões melhor informadas com base em fatos, não suposições</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>Ver o Mundo</h3>
+                <p>Compreenda melhor a sociedade, economia e tendências globais</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- All Articles Preview -->
+{% if articles|length > 3 %}
+<section class="all-articles">
+    <div class="container">
+        <h2 class="section-title">Últimos Artigos</h2>
+        <div class="articles-list">
+            {% for article in articles[3:] %}
+            <article class="article-list-item">
+                <div class="article-list-header">
+                    <h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
+                    <time>{{ article.locale_date }}</time>
+                </div>
+                <p>{{ article.summary|striptags|truncate(200) if article.summary else article.content|striptags|truncate(200) }}</p>
+                <div class="article-list-footer">
+                    <span class="category-badge">{{ article.category }}</span>
+                    <a href="{{ SITEURL }}/{{ article.url }}" class="read-link">Ler →</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        <div class="view-all-link">
+            <a href="{{ SITEURL }}/blog.html" class="secondary-button">Ver Todos os Artigos</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
