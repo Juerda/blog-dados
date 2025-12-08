@@ -3,7 +3,6 @@ Date: 2024-12-08
 Category: E-commerce
 Tags: google-trends, e-commerce, dados, análise, tendências
 Slug: tendencias-ecommerce-novembro-2025
-Banner: /theme/static/images/banners/ecommerce-trends.svg
 
 # Tendências de E-commerce em Novembro: O que os Consumidores Estão Buscando
 

@@ -3,7 +3,6 @@ Date: 2024-11-25
 Category: Python
 Tags: python, dados, programação
 Slug: coletar-processar-dados-python
-Banner: /theme/static/images/banners/python-dados.svg
 
 ## Introdução
 

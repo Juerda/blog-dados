@@ -7,9 +7,30 @@
 {% block content %}
 <div class="article-container">
     <article class="article-full">
-        {% if article.banner %}
-        <div class="article-banner">
-            <img src="{{ article.banner }}" alt="{{ article.title }}" loading="lazy">
+        <!-- Dynamic Banner based on Category -->
+        {% if article.category == 'E-commerce' %}
+        <div class="article-banner" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 60px; border-radius: 12px; margin-bottom: 30px; text-align: center; color: white;">
+            <div style="font-size: 3em; margin-bottom: 15px;">🛍️ 💳 📊</div>
+            <h2 style="margin: 0 0 10px 0; font-size: 2.2em; font-weight: bold;">Tendências de E-commerce</h2>
+            <p style="margin: 0; font-size: 1.1em; opacity: 0.9;">Análise com Google Trends e dados de busca</p>
+        </div>
+        {% elif article.category == 'Python' %}
+        <div class="article-banner" style="background: linear-gradient(135deg, #1e2c3d 0%, #0f1419 100%); padding: 60px; border-radius: 12px; margin-bottom: 30px; text-align: center; color: white;">
+            <div style="font-size: 3em; margin-bottom: 15px;">🐍 💾 📈</div>
+            <h2 style="margin: 0 0 10px 0; font-size: 2.2em; font-weight: bold;">Processamento de Dados</h2>
+            <p style="margin: 0; font-size: 1.1em; opacity: 0.9;">Com Python e Análise Estatística</p>
+        </div>
+        {% elif article.category == 'Tecnologia' %}
+        <div class="article-banner" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 60px; border-radius: 12px; margin-bottom: 30px; text-align: center; color: white;">
+            <div style="font-size: 3em; margin-bottom: 15px;">⚡ 💻 🚀</div>
+            <h2 style="margin: 0 0 10px 0; font-size: 2.2em; font-weight: bold;">Tendências Tecnológicas</h2>
+            <p style="margin: 0; font-size: 1.1em; opacity: 0.9;">Inovação e transformação digital em 2024</p>
+        </div>
+        {% else %}
+        <div class="article-banner" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); padding: 60px; border-radius: 12px; margin-bottom: 30px; text-align: center; color: white;">
+            <div style="font-size: 3em; margin-bottom: 15px;">📚 📖 ✨</div>
+            <h2 style="margin: 0 0 10px 0; font-size: 2.2em; font-weight: bold;">{{ article.title }}</h2>
+            <p style="margin: 0; font-size: 1.1em; opacity: 0.9;">{{ article.category }}</p>
         </div>
         {% endif %}
         
