@@ -351,8 +351,8 @@ blockquote {
     background: none;
     border: 2px solid var(--border);
     color: var(--text-primary);
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -360,12 +360,25 @@ blockquote {
     justify-content: center;
     transition: var(--transition);
     font-size: 18px;
+    position: relative;
+    overflow: hidden;
 }
 
 .theme-toggle-btn:hover {
     background: var(--bg-secondary);
     border-color: var(--secondary);
     color: var(--secondary);
+    transform: scale(1.05);
+}
+
+.theme-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+.theme-icon {
+    width: 24px;
+    height: 24px;
+    color: currentColor;
 }
 
 .mobile-menu-btn span {
@@ -458,19 +471,37 @@ blockquote {
 /* Article Banner */
 .article-banner {
     width: 100%;
-    height: 400px;
+    height: auto;
+    min-height: 280px;
     margin-bottom: var(--spacing-lg);
     border-radius: 12px;
     overflow: hidden;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.article-banner img {
+.banner-svg {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
     display: block;
+}
+
+.article-banner-ecommerce {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.article-banner-python {
+    background: linear-gradient(135deg, #1e2c3d 0%, #0f1419 100%);
+}
+
+.article-banner-tech {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.article-banner-default {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
 }
 
 /* CSV Download Button */
@@ -478,21 +509,23 @@ blockquote {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 16px;
-    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    padding: 12px 20px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     transition: all 0.3s ease;
-    margin: 12px 0;
+    margin: 16px 0;
+    box-shadow: var(--shadow-md);
 }
 
 .csv-export-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
+    box-shadow: var(--shadow-lg);
+    opacity: 0.95;
 }
 
 .csv-export-button:active {
@@ -520,6 +553,10 @@ blockquote {
     width: 300px;
     height: 300px;
     position: relative;
+    background-color: var(--bg-primary);
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: var(--shadow-sm);
 }
 
 .pie-chart-legend {
@@ -533,6 +570,7 @@ blockquote {
     gap: 10px;
     margin-bottom: 12px;
     font-size: 15px;
+    color: var(--text-primary);
 }
 
 .pie-chart-legend-color {
@@ -554,6 +592,7 @@ blockquote {
     .hero-illustration {
         display: none;
     }
+
 }
 
 /* ================================

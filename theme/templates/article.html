@@ -9,28 +9,135 @@
     <article class="article-full">
         <!-- Dynamic Banner based on Category -->
         {% if article.category == 'E-commerce' %}
-        <div class="article-banner" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 60px; border-radius: 12px; margin-bottom: 30px; text-align: center; color: white;">
-            <div style="font-size: 3em; margin-bottom: 15px;">🛍️ 💳 📊</div>
-            <h2 style="margin: 0 0 10px 0; font-size: 2.2em; font-weight: bold;">Tendências de E-commerce</h2>
-            <p style="margin: 0; font-size: 1.1em; opacity: 0.9;">Análise com Google Trends e dados de busca</p>
+        <div class="article-banner article-banner-ecommerce">
+            <svg class="banner-svg" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background -->
+                <defs>
+                    <linearGradient id="bgGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <rect width="1200" height="300" fill="url(#bgGradient1)"/>
+                
+                <!-- Shopping Bag Icon -->
+                <g transform="translate(200, 100)">
+                    <rect x="10" y="40" width="80" height="80" rx="5" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="3"/>
+                    <path d="M 30 40 L 30 20 Q 30 10 40 10 L 60 10 Q 70 10 70 20 L 70 40" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="50" y1="60" x2="50" y2="100" stroke="white" stroke-width="2"/>
+                </g>
+                
+                <!-- Pie Chart Icon -->
+                <g transform="translate(900, 80)">
+                    <circle cx="0" cy="0" r="50" fill="none" stroke="white" stroke-width="3" opacity="0.3"/>
+                    <circle cx="0" cy="0" r="45" fill="rgba(255,255,255,0.1)"/>
+                    <path d="M 0,0 L 0,-45 A 45,45 0 0,1 32,-32 Z" fill="rgba(255,255,255,0.5)"/>
+                    <path d="M 0,0 L 32,-32 A 45,45 0 0,1 45,0 Z" fill="rgba(255,255,255,0.7)"/>
+                    <path d="M 0,0 L 45,0 A 45,45 0 0,1 0,45 Z" fill="rgba(255,255,255,0.3)"/>
+                </g>
+                
+                <!-- Text -->
+                <text x="600" y="120" font-size="48" font-weight="bold" fill="white" text-anchor="middle" font-family="Arial">Tendências de E-commerce</text>
+                <text x="600" y="170" font-size="24" fill="rgba(255,255,255,0.9)" text-anchor="middle" font-family="Arial">Análise com Google Trends e dados de busca</text>
+            </svg>
         </div>
         {% elif article.category == 'Python' %}
-        <div class="article-banner" style="background: linear-gradient(135deg, #1e2c3d 0%, #0f1419 100%); padding: 60px; border-radius: 12px; margin-bottom: 30px; text-align: center; color: white;">
-            <div style="font-size: 3em; margin-bottom: 15px;">🐍 💾 📈</div>
-            <h2 style="margin: 0 0 10px 0; font-size: 2.2em; font-weight: bold;">Processamento de Dados</h2>
-            <p style="margin: 0; font-size: 1.1em; opacity: 0.9;">Com Python e Análise Estatística</p>
+        <div class="article-banner article-banner-python">
+            <svg class="banner-svg" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="bgGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1e2c3d;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#0f1419;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <rect width="1200" height="300" fill="url(#bgGradient2)"/>
+                
+                <!-- Python Snake -->
+                <g transform="translate(150, 80)">
+                    <circle cx="0" cy="0" r="35" fill="#3776ab" stroke="white" stroke-width="2"/>
+                    <circle cx="0" cy="0" r="20" fill="#ffd43b"/>
+                    <circle cx="-8" cy="-8" r="5" fill="#3776ab"/>
+                </g>
+                
+                <!-- Code Brackets -->
+                <g transform="translate(900, 80)" stroke="white" stroke-width="3" fill="none" stroke-linecap="round">
+                    <path d="M 0 0 L -30 20 L 0 40"/>
+                    <path d="M 60 0 L 90 20 L 60 40"/>
+                    <line x1="20" y1="10" x2="40" y2="30"/>
+                    <line x1="40" y1="10" x2="20" y2="30"/>
+                </g>
+                
+                <!-- Text -->
+                <text x="600" y="120" font-size="48" font-weight="bold" fill="white" text-anchor="middle" font-family="Arial">Processamento de Dados</text>
+                <text x="600" y="170" font-size="24" fill="rgba(255,255,255,0.9)" text-anchor="middle" font-family="Arial">Com Python e Análise Estatística</text>
+            </svg>
         </div>
         {% elif article.category == 'Tecnologia' %}
-        <div class="article-banner" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 60px; border-radius: 12px; margin-bottom: 30px; text-align: center; color: white;">
-            <div style="font-size: 3em; margin-bottom: 15px;">⚡ 💻 🚀</div>
-            <h2 style="margin: 0 0 10px 0; font-size: 2.2em; font-weight: bold;">Tendências Tecnológicas</h2>
-            <p style="margin: 0; font-size: 1.1em; opacity: 0.9;">Inovação e transformação digital em 2024</p>
+        <div class="article-banner article-banner-tech">
+            <svg class="banner-svg" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="bgGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <rect width="1200" height="300" fill="url(#bgGradient3)"/>
+                
+                <!-- Microchip -->
+                <g transform="translate(150, 80)">
+                    <rect x="0" y="0" width="70" height="70" fill="rgba(255,255,255,0.1)" stroke="white" stroke-width="2" rx="5"/>
+                    <circle cx="17.5" cy="17.5" r="8" fill="white"/>
+                    <circle cx="52.5" cy="17.5" r="8" fill="white"/>
+                    <circle cx="17.5" cy="52.5" r="8" fill="white"/>
+                    <circle cx="52.5" cy="52.5" r="8" fill="white"/>
+                    <line x1="35" y1="0" x2="35" y2="70" stroke="white" stroke-width="1" opacity="0.3"/>
+                    <line x1="0" y1="35" x2="70" y2="35" stroke="white" stroke-width="1" opacity="0.3"/>
+                </g>
+                
+                <!-- Rocket -->
+                <g transform="translate(900, 60)">
+                    <path d="M 0 0 L -10 20 L 0 15 L 10 20 Z" fill="rgba(255,255,255,0.8)"/>
+                    <rect x="-8" y="15" width="16" height="40" rx="2" fill="rgba(255,255,255,0.6)"/>
+                    <circle cx="-15" cy="35" r="6" fill="rgba(255,255,255,0.4)"/>
+                    <circle cx="15" cy="35" r="6" fill="rgba(255,255,255,0.4)"/>
+                    <path d="M 0 50 L -8 70 L 8 70 Z" fill="rgba(255,100,100,0.8)"/>
+                </g>
+                
+                <!-- Text -->
+                <text x="600" y="120" font-size="48" font-weight="bold" fill="white" text-anchor="middle" font-family="Arial">Tendências Tecnológicas</text>
+                <text x="600" y="170" font-size="24" fill="rgba(255,255,255,0.9)" text-anchor="middle" font-family="Arial">Inovação e transformação digital em 2024</text>
+            </svg>
         </div>
         {% else %}
-        <div class="article-banner" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); padding: 60px; border-radius: 12px; margin-bottom: 30px; text-align: center; color: white;">
-            <div style="font-size: 3em; margin-bottom: 15px;">📚 📖 ✨</div>
-            <h2 style="margin: 0 0 10px 0; font-size: 2.2em; font-weight: bold;">{{ article.title }}</h2>
-            <p style="margin: 0; font-size: 1.1em; opacity: 0.9;">{{ article.category }}</p>
+        <div class="article-banner article-banner-default">
+            <svg class="banner-svg" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="bgGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <rect width="1200" height="300" fill="url(#bgGradient4)"/>
+                
+                <!-- Book Icon -->
+                <g transform="translate(180, 80)">
+                    <path d="M 0 0 L 0 80 Q 0 90 10 90 L 60 90 Q 70 90 70 80 L 70 0" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+                    <line x1="10" y1="20" x2="60" y2="20" stroke="white" stroke-width="1" opacity="0.5"/>
+                    <line x1="10" y1="35" x2="60" y2="35" stroke="white" stroke-width="1" opacity="0.5"/>
+                    <line x1="10" y1="50" x2="60" y2="50" stroke="white" stroke-width="1" opacity="0.5"/>
+                    <line x1="10" y1="65" x2="60" y2="65" stroke="white" stroke-width="1" opacity="0.5"/>
+                </g>
+                
+                <!-- Stars -->
+                <g transform="translate(900, 80)" fill="white" opacity="0.7">
+                    <polygon points="0,0 5,-15 10,0 25,-5 15,5 20,20 5,10 -10,20 -5,5 -15,-5"/>
+                    <polygon points="0,50 3,-10 6,0 15,-3 9,3 12,12 3,6 -6,12 -3,3 -9,-3"/>
+                </g>
+                
+                <!-- Text -->
+                <text x="600" y="120" font-size="48" font-weight="bold" fill="white" text-anchor="middle" font-family="Arial">{{ article.title }}</text>
+                <text x="600" y="170" font-size="24" fill="rgba(255,255,255,0.9)" text-anchor="middle" font-family="Arial">{{ article.category }}</text>
+            </svg>
         </div>
         {% endif %}
         
