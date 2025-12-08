@@ -11,7 +11,7 @@ Neste post, vou mostrar técnicas práticas para coletar e processar dados usand
 ## Principais Métodos de Coleta de Dados
 
 <div class="pie-chart-container">
-  <h3 style="text-align: center; margin-top: 0;">Métodos Mais Utilizados para Coleta</h3>
+  <h3 style="text-align: center; margin-top: 0; color: var(--text-primary);">Métodos Mais Utilizados para Coleta</h3>
   
   <button class="csv-export-button" data-target="methodsPieChart" data-filename="metodos-coleta-dados.csv" data-title="Métodos de Coleta de Dados - Python">
     📥 Baixar Dados em CSV
@@ -19,7 +19,7 @@ Neste post, vou mostrar técnicas práticas para coletar e processar dados usand
   
   <div class="pie-chart-wrapper">
     <div class="pie-chart-canvas">
-      <canvas id="methodsPieChart" width="300" height="300"></canvas>
+      <canvas id="methodsPieChart" width="300" height="300" style="max-width: 100%;"></canvas>
     </div>
     
     <div class="pie-chart-legend">
@@ -47,34 +47,50 @@ Neste post, vou mostrar técnicas práticas para coletar e processar dados usand
   </div>
 </div>
 
-<script>
-  // Dados para o gráfico de pizza
-  const methodsData = [
-    { label: 'APIs REST', value: 40, percentage: 40 },
-    { label: 'Web Scraping', value: 25, percentage: 25 },
-    { label: 'Arquivos CSV', value: 20, percentage: 20 },
-    { label: 'Banco de Dados', value: 10, percentage: 10 },
-    { label: 'Outros', value: 5, percentage: 5 }
-  ];
-
-  const methodsColors = ['#3498db', '#e74c3c', '#f39c12', '#2ecc71', '#9b59b6'];
-
-  // Inicializar gráfico de pizza
-  const methodsPieChart = new PieChart('methodsPieChart', methodsData, methodsColors);
-  
-  // Armazenar os dados para exportação CSV
-  window.pieCharts = window.pieCharts || {};
-  window.pieCharts.methodsPieChart = {
-    getData: function() {
-      return [
-        { Método: 'APIs REST', Percentual: '40%', Preferência: 'Muito Alta' },
-        { Método: 'Web Scraping', Percentual: '25%', Preferência: 'Alta' },
-        { Método: 'Arquivos CSV', Percentual: '20%', Preferência: 'Alta' },
-        { Método: 'Banco de Dados', Percentual: '10%', Preferência: 'Média' },
-        { Método: 'Outros', Percentual: '5%', Preferência: 'Baixa' }
-      ];
+<script type="text/javascript">
+(function() {
+  // Aguardar o carregamento da classe PieChart
+  function initChart() {
+    if (typeof PieChart === 'undefined') {
+      setTimeout(initChart, 100);
+      return;
     }
-  };
+
+    // Dados para o gráfico de pizza
+    const methodsData = [
+      { label: 'APIs REST', value: 40, percentage: 40 },
+      { label: 'Web Scraping', value: 25, percentage: 25 },
+      { label: 'Arquivos CSV', value: 20, percentage: 20 },
+      { label: 'Banco de Dados', value: 10, percentage: 10 },
+      { label: 'Outros', value: 5, percentage: 5 }
+    ];
+
+    const methodsColors = ['#3498db', '#e74c3c', '#f39c12', '#2ecc71', '#9b59b6'];
+
+    // Inicializar gráfico de pizza
+    const methodsPieChart = new PieChart('methodsPieChart', methodsData, methodsColors);
+    
+    // Armazenar os dados para exportação CSV
+    window.pieCharts = window.pieCharts || {};
+    window.pieCharts.methodsPieChart = {
+      getData: function() {
+        return [
+          { Método: 'APIs REST', Percentual: '40%', Preferência: 'Muito Alta' },
+          { Método: 'Web Scraping', Percentual: '25%', Preferência: 'Alta' },
+          { Método: 'Arquivos CSV', Percentual: '20%', Preferência: 'Alta' },
+          { Método: 'Banco de Dados', Percentual: '10%', Preferência: 'Média' },
+          { Método: 'Outros', Percentual: '5%', Preferência: 'Baixa' }
+        ];
+      }
+    };
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initChart);
+  } else {
+    initChart();
+  }
+})();
 </script>
 
 ## Coleta de Dados

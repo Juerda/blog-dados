@@ -585,6 +585,8 @@ blockquote {
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
     }
 }
+
+@media (max-width: 768px) {
     .hero-container {
         grid-template-columns: 1fr;
     }
@@ -592,7 +594,6 @@ blockquote {
     .hero-illustration {
         display: none;
     }
-
 }
 
 /* ================================
