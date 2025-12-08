@@ -22,14 +22,22 @@ INDEX_SAVE_AS = 'index.html'
 PATH = 'content' 
 OUTPUT_PATH = 'output/'
 STATIC_PATHS = ['images']
+EXTRA_PATH_METADATA = {
+    'theme/static/css': {'path': 'theme/css'},
+    'theme/static/js': {'path': 'theme/js'},
+    'theme/static/images': {'path': 'theme/images'},
+}
 
 # --- Aparência e Menu ---
 THEME = 'theme' 
-DIRECT_TEMPLATES = ['index', 'tags', 'categories']
-PAGINATED_TEMPLATES = {'archives': None}
+DIRECT_TEMPLATES = ['index', 'tags', 'categories', 'archives']
+PAGINATED_TEMPLATES = {}
 ARCHIVES_SAVE_AS = 'blog.html'
 DISPLAY_PAGES_ON_MENU = False
 DISPLAY_CATEGORIES_ON_MENU = False
+DISPLAY_RECENT_POSTS_ON_MENU = False
+ARTICLE_ORDER_BY = 'date'
+DEFAULT_PAGINATION = False
 
 # --- Configurações de Conteúdo ---
 PLUGIN_PATHS = ['plugins']
