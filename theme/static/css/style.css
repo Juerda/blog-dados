@@ -2,8 +2,9 @@
    RESET E VARIÁVEIS CSS
    ================================ */
 
+:root[data-theme="light"],
 :root {
-    /* Cores */
+    /* Cores - Tema Claro */
     --primary: #0f172a;
     --primary-light: #1e293b;
     --primary-lighter: #334155;
@@ -49,6 +50,24 @@
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Tema Escuro */
+:root[data-theme="dark"] {
+    --primary: #f1f5f9;
+    --primary-light: #e2e8f0;
+    --primary-lighter: #cbd5e1;
+    --secondary: #3b82f6;
+    --secondary-hover: #60a5fa;
+    --accent: #10b981;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-light: #94a3b8;
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #334155;
+    --border: #334155;
+    --border-dark: #475569;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -262,6 +281,27 @@ blockquote {
     cursor: pointer;
     gap: var(--spacing-sm);
     padding: 0;
+}
+
+.theme-toggle-btn {
+    background: none;
+    border: 2px solid var(--border);
+    color: var(--text-primary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    font-size: 18px;
+}
+
+.theme-toggle-btn:hover {
+    background: var(--bg-secondary);
+    border-color: var(--secondary);
+    color: var(--secondary);
 }
 
 .mobile-menu-btn span {

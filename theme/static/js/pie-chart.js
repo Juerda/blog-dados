@@ -3,6 +3,10 @@
 class PieChart {
     constructor(canvasId, data, colors) {
         this.canvas = document.getElementById(canvasId);
+        if (!this.canvas) {
+            console.warn(`Canvas with ID ${canvasId} not found`);
+            return;
+        }
         this.ctx = this.canvas.getContext('2d');
         this.data = data;
         this.colors = colors;
@@ -91,7 +95,7 @@ function downloadCSV(data, filename, title = '') {
 }
 
 // Initialize pie charts when page loads
-document.addEventListener('DOMContentLoaded', function() {
+function initPieCharts() {
     // Find all CSV export buttons and attach handlers
     const csvButtons = document.querySelectorAll('.csv-export-button');
     csvButtons.forEach(button => {
@@ -102,13 +106,21 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (targetId) {
                 const chart = window.pieCharts && window.pieCharts[targetId];
-                if (chart) {
+                if (chart && typeof chart.getData === 'function') {
                     downloadCSV(chart.getData(), filename, title);
+                } else {
+                    console.warn(`Chart ${targetId} not found or has no getData method`);
                 }
             }
         });
     });
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPieCharts);
+} else {
+    initPieCharts();
+}
 
 // Store pie charts globally for access
 window.pieCharts = window.pieCharts || {};

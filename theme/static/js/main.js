@@ -1,5 +1,51 @@
+// Theme toggle (dark/light mode)
+function initThemeToggle() {
+    // Check for saved theme preference or default to light mode
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    
+    // Create theme toggle button if it doesn't exist
+    const navbar = document.querySelector('.navbar-menu');
+    if (navbar && !document.getElementById('themeToggleBtn')) {
+        const themeBtn = document.createElement('li');
+        themeBtn.innerHTML = `
+            <button id="themeToggleBtn" class="theme-toggle-btn" title="Alternar tema" aria-label="Alternar tema escuro/claro">
+                <i class="fas fa-moon"></i>
+            </button>
+        `;
+        navbar.appendChild(themeBtn);
+        
+        const themeBtnElement = document.getElementById('themeToggleBtn');
+        themeBtnElement.addEventListener('click', toggleTheme);
+        updateThemeIcon(savedTheme);
+    }
+}
+
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+}
+
+function updateThemeIcon(theme) {
+    const themeBtn = document.getElementById('themeToggleBtn');
+    if (themeBtn) {
+        const icon = themeBtn.querySelector('i');
+        if (icon) {
+            icon.classList.remove('fa-moon', 'fa-sun');
+            icon.classList.add(theme === 'light' ? 'fa-moon' : 'fa-sun');
+        }
+    }
+}
+
 // Menu mobile
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize theme toggle
+    initThemeToggle();
+    
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const navbarMenu = document.getElementById('navbarMenu');
 
