@@ -1,5 +1,4 @@
 {
-  "buildCommand": "pip install -r requirements.txt && pelican content -o output -s pelicanconf.py",
-  "outputDirectory": "output",
-  "framework": "other"
+  "buildCommand": "pip install Pelican Markdown && pelican content -o output -s pelicanconf.py",
+  "outputDirectory": "output"
 }
