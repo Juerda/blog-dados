@@ -17,14 +17,6 @@ Para qualquer loja online, entender o que os consumidores estão procurando é *
 - 💰 **Maximizar vendas** - Destacar itens com maior interesse
 - 📈 **Previsão de demanda** - Preparar-se para picos de busca
 
-## Ferramentas: Google Trends API
-
-Para esta análise, utilizamos a **Google Trends API** via Python para extrair:
-- Termos mais buscados em novembro 2025
-- Volume de buscas por categoria
-- Comparativo com novembro 2024
-- Gráficos de tendência ao longo do mês
-
 ## Top 10 Termos de Busca para Compras em Novembro 2025
 
 Aqui estão os **termos de busca mais populares** relacionados a compras em novembro:
@@ -193,6 +185,9 @@ A análise por categoria mostra a seguinte distribuição de interesse:
 
 <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 12px; margin: 20px 0;">
   <h3 style="color: white; margin-top: 0; text-align: center;">Índice de Buscas por Semana</h3>
+  <p style="color: rgba(255,255,255,0.8); text-align: center; margin: 0 0 20px 0; font-size: 14px;">
+    <strong>📊 Fonte:</strong> <a href="https://trends.google.com.br" style="color: #fff; text-decoration: underline;">Google Trends</a> | <strong>📅 Período:</strong> Novembro 2024 vs 2025
+  </p>
   
   <div style="display: flex; gap: 20px; margin: 20px 0; flex-wrap: wrap;">
     <!-- Semana 1 -->
@@ -288,30 +283,25 @@ O comparativo 2024 vs 2025 mostra que **padrões de busca são previsíveis** - 
 
 ## Como Implementar Esta Análise no Seu E-commerce
 
-Se você quer fazer análises similares, aqui estão os passos:
+Se você quer fazer análises similares, aqui estão os passos principais:
 
-### Usando Python:
+### Passos para Análise de Tendências:
 
-```python
-# Pseudocódigo para análise com Google Trends
-from pytrends.client import TrendReq
+1. **Acesse Google Trends** - https://trends.google.com.br
+2. **Defina a categoria e período** - Selecione "Shopping" e o período desejado
+3. **Compare períodos** - Use a funcionalidade de comparação ano a ano
+4. **Exporte os dados** - Baixe em CSV para análise posterior
+5. **Crie visualizações** - Use ferramentas como Power BI, Tableau ou bibliotecas Python
 
-# Conectar à API
-pytrends = TrendReq(hl='pt-BR', tz=360)
+### Ferramentas Recomendadas:
 
-# Definir termos de busca
-keywords = ['black friday', 'compras online', 'promoções']
+- **Google Trends** - Análise básica e gratuita
+- **Semrush** - Análise competitiva de keywords
+- **Ahrefs** - Pesquisa de volume de busca
+- **Answer the Public** - Dúvidas relacionadas de usuários
+- **Google Search Console** - Dados reais do seu site
 
-# Buscar dados
-pytrends.build_payload(keywords, cat=0, timeframe='2025-11-01 2025-11-30')
-
-# Obter interesse ao longo do tempo
-df = pytrends.interest_over_time()
-
-# Análise e visualização
-print(df.head())
-df.plot(figsize=(12,6))
-```
+---
 
 ## Conclusão
 
