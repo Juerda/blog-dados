@@ -3,6 +3,7 @@ Date: 2025-12-08
 Category: E-commerce
 Tags: google-trends, e-commerce, dados, análise, tendências
 Slug: tendencias-ecommerce-novembro-2025
+Banner: /theme/static/images/banners/ecommerce-trends.svg
 
 # Tendências de E-commerce em Novembro: O que os Consumidores Estão Buscando
 
@@ -180,6 +181,75 @@ A análise por categoria mostra a seguinte distribuição de interesse:
     </div>
   </div>
 </div>
+
+## Visualização em Gráfico de Pizza
+
+<div class="pie-chart-container">
+  <h3 style="text-align: center; margin-top: 0;">Distribuição de Interesse por Categoria</h3>
+  
+  <button class="csv-export-button" data-target="categoryPieChart" data-filename="categorias-ecommerce.csv" data-title="Distribuição de Categorias - Novembro 2025">
+    📥 Baixar Dados em CSV
+  </button>
+  
+  <div class="pie-chart-wrapper">
+    <div class="pie-chart-canvas">
+      <canvas id="categoryPieChart" width="300" height="300"></canvas>
+    </div>
+    
+    <div class="pie-chart-legend">
+      <div class="pie-chart-legend-item">
+        <div class="pie-chart-legend-color" style="background: #3498db;"></div>
+        <span><strong>Eletrônicos:</strong> 35%</span>
+      </div>
+      <div class="pie-chart-legend-item">
+        <div class="pie-chart-legend-color" style="background: #e74c3c;"></div>
+        <span><strong>Moda:</strong> 25%</span>
+      </div>
+      <div class="pie-chart-legend-item">
+        <div class="pie-chart-legend-color" style="background: #f39c12;"></div>
+        <span><strong>Casa:</strong> 18%</span>
+      </div>
+      <div class="pie-chart-legend-item">
+        <div class="pie-chart-legend-color" style="background: #2ecc71;"></div>
+        <span><strong>Beleza:</strong> 12%</span>
+      </div>
+      <div class="pie-chart-legend-item">
+        <div class="pie-chart-legend-color" style="background: #9b59b6;"></div>
+        <span><strong>Outros:</strong> 10%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Dados para o gráfico de pizza
+  const categoryData = [
+    { label: 'Eletrônicos', value: 35, percentage: 35 },
+    { label: 'Moda', value: 25, percentage: 25 },
+    { label: 'Casa', value: 18, percentage: 18 },
+    { label: 'Beleza', value: 12, percentage: 12 },
+    { label: 'Outros', value: 10, percentage: 10 }
+  ];
+
+  const categoryColors = ['#3498db', '#e74c3c', '#f39c12', '#2ecc71', '#9b59b6'];
+
+  // Inicializar gráfico de pizza
+  const pieChart = new PieChart('categoryPieChart', categoryData, categoryColors);
+  
+  // Armazenar os dados para exportação CSV
+  window.pieCharts = window.pieCharts || {};
+  window.pieCharts.categoryPieChart = {
+    getData: function() {
+      return [
+        { Categoria: 'Eletrônicos', Percentual: '35%', Buscas: 'Alto' },
+        { Categoria: 'Moda', Percentual: '25%', Buscas: 'Médio-Alto' },
+        { Categoria: 'Casa e Decoração', Percentual: '18%', Buscas: 'Médio' },
+        { Categoria: 'Beleza e Cuidados', Percentual: '12%', Buscas: 'Médio' },
+        { Categoria: 'Outros', Percentual: '10%', Buscas: 'Baixo' }
+      ];
+    }
+  };
+</script>
 
 ## Gráfico: Comparativo Novembro 2024 vs 2025
 

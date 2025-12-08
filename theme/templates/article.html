@@ -7,6 +7,12 @@
 {% block content %}
 <div class="article-container">
     <article class="article-full">
+        {% if article.banner %}
+        <div class="article-banner">
+            <img src="{{ article.banner }}" alt="{{ article.title }}" loading="lazy">
+        </div>
+        {% endif %}
+        
         <header class="article-header">
             <div class="article-meta-top">
                 <span class="category-badge">{{ article.category }}</span>
