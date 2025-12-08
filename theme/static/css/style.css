@@ -1148,8 +1148,16 @@ blockquote {
 
 .footer-bottom {
     text-align: center;
-    color: #94a3b8;
     font-size: var(--font-size-sm);
+}
+
+:root[data-theme="light"] .footer-bottom,
+:root .footer-bottom {
+    color: #E8EEF4;
+}
+
+:root[data-theme="dark"] .footer-bottom {
+    color: #A8C5E0;
 }
 
 /* ================================
