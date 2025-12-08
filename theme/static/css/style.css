@@ -6,47 +6,60 @@
 :root {
     /* ========== TEMA CLARO (PADRÃO) ========== */
     /* Cores Primárias - Azul Corporativo */
-    --primary-blue: #0066CC;              /* Azul Principal - Confiança, tecnologia */
-    --primary-blue-dark: #0052A3;         /* Azul Escuro - Para hover/ativo */
-    --primary-blue-light: #E8F4FF;        /* Azul Muito Claro - Fundos suaves */
+    --primary: #0066CC;                   /* Azul Principal - Confiança, tecnologia */
+    --primary-dark: #0052A3;              /* Azul Escuro - Para hover/ativo */
+    --primary-light: #E3F2FD;             /* Azul Muito Claro - Fundos suaves */
+    --primary-lighter: #F0F7FF;           /* Azul Extremamente Claro */
     
-    /* Cores Secundárias e Acentos */
+    /* Cor Secundária */
+    --secondary: #0052A3;                 /* Azul Escuro para destaque */
+    --secondary-hover: #003D7A;           /* Azul ainda mais escuro para hover */
+    
+    /* Cores de Acentos */
     --accent-green: #00A86B;              /* Verde - Sucesso, progresso */
     --accent-orange: #FF8C42;             /* Laranja - Atenção, energia */
     --accent-red: #E63946;                /* Vermelho - Alertas, erros */
     
-    /* Escala de Cinzas (Neutros) */
-    --gray-50: #F9FAFB;                   /* Branco com toque */
-    --gray-100: #F3F4F6;                  /* Muito claro */
-    --gray-200: #E5E7EB;                  /* Claro */
-    --gray-300: #D1D5DB;                  /* Médio-claro */
-    --gray-400: #9CA3AF;                  /* Médio */
-    --gray-500: #6B7280;                  /* Médio-escuro */
-    --gray-600: #4B5563;                  /* Escuro */
-    --gray-700: #374151;                  /* Muito escuro */
-    --gray-800: #1F2937;                  /* Quase preto */
-    --gray-900: #111827;                  /* Preto */
+    /* Escala de Cinzas - TEMA CLARO */
+    --gray-50: #FFFFFF;                   /* Branco puro - Fundo principal */
+    --gray-100: #F8FAFC;                  /* Branco com um toque */
+    --gray-150: #F0F4F9;                  /* Cinza muito claro - Backgrounds secundários */
+    --gray-200: #E8EEF4;                  /* Cinza claro - Backgrounds terciários */
+    --gray-300: #D9E1ED;                  /* Cinza claro-médio - Bordas */
+    --gray-400: #B8C5D6;                  /* Cinza médio */
+    --gray-500: #8B99A8;                  /* Cinza médio-escuro - Textos leves */
+    --gray-600: #5A6A7A;                  /* Cinza escuro - Textos secundários */
+    --gray-700: #2F3E52;                  /* Cinza muito escuro - Textos principais */
+    --gray-800: #1A2332;                  /* Quase preto */
+    --gray-900: #0D1117;                  /* Preto */
     
-    /* Aliases para Facilitar */
-    --text-primary: #1A1A2E;              /* Texto principal - Cinza muito escuro */
-    --text-secondary: #4B5563;            /* Texto secundário - Cinza médio */
-    --text-light: #9CA3AF;                /* Texto claro - Cinza claro */
+    /* Aliases para Textos */
+    --text-primary: #1A2332;              /* Texto principal - Cinza muito escuro (alto contraste) */
+    --text-secondary: #5A6A7A;            /* Texto secundário - Cinza médio-escuro */
+    --text-light: #8B99A8;                /* Texto leve - Cinza médio */
     --text-inverse: #FFFFFF;              /* Texto em fundo escuro */
     
-    --bg-primary: #FFFFFF;                /* Fundo principal */
-    --bg-secondary: #F9FAFB;              /* Fundo secundário */
-    --bg-tertiary: #F3F4F6;               /* Fundo terciário */
-    --bg-hover: #E8F4FF;                  /* Fundo em hover */
+    /* Aliases para Fundos - DIFERENCIADOS POR SEÇÃO */
+    --bg-primary: #FFFFFF;                /* Fundo principal - Branco puro */
+    --bg-secondary: #F8FAFC;              /* Fundo secundário - Muito claro (listas, cards) */
+    --bg-tertiary: #F0F4F9;               /* Fundo terciário - Claro (hover, sections) */
+    --bg-nav: #FFFFFF;                    /* Fundo da navbar - Branco */
+    --bg-footer: #0066CC;                 /* Fundo do footer - Azul principal */
+    --bg-section-alt: #F8FAFC;            /* Backgrounds alternados para sections */
+    --bg-hover: #E3F2FD;                  /* Fundo em hover - Azul claro */
+    --bg-code: #F0F4F9;                   /* Fundo de código */
     
-    --border-light: #E5E7EB;              /* Borda clara */
-    --border-medium: #D1D5DB;             /* Borda média */
-    --border-dark: #9CA3AF;               /* Borda escura */
+    /* Aliases para Bordas */
+    --border: #D9E1ED;                    /* Borda padrão - Cinza claro */
+    --border-light: #E8EEF4;              /* Borda clara */
+    --border-medium: #D9E1ED;             /* Borda média */
+    --border-dark: #B8C5D6;               /* Borda escura */
     
-    /* Sombras com tons azuis */
-    --shadow-sm: 0 1px 2px rgba(0, 102, 204, 0.04);
-    --shadow-md: 0 4px 12px rgba(0, 102, 204, 0.08);
-    --shadow-lg: 0 10px 24px rgba(0, 102, 204, 0.12);
-    --shadow-xl: 0 20px 48px rgba(0, 102, 204, 0.16);
+    /* Sombras com tons azuis leves */
+    --shadow-sm: 0 1px 3px rgba(0, 51, 153, 0.06);
+    --shadow-md: 0 4px 12px rgba(0, 51, 153, 0.10);
+    --shadow-lg: 0 10px 24px rgba(0, 51, 153, 0.12);
+    --shadow-xl: 0 20px 48px rgba(0, 51, 153, 0.15);
     
     /* Tipografia */
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -79,44 +92,57 @@
 /* ========== TEMA ESCURO ========== */
 :root[data-theme="dark"] {
     /* Cores Primárias - Azul Brilhante em fundo escuro */
-    --primary-blue: #00AEFF;              /* Azul Brilhante - Destaque no escuro */
-    --primary-blue-dark: #0099DD;         /* Azul escuro para hover */
-    --primary-blue-light: #0A2342;        /* Azul profundo - Base */
+    --primary: #00AEFF;                   /* Azul Brilhante - Destaque no escuro */
+    --primary-dark: #0099DD;              /* Azul escuro para hover */
+    --primary-light: #0A3A5C;             /* Azul profundo - Base */
+    --primary-lighter: #051428;           /* Azul extremamente escuro */
     
-    /* Cores Secundárias e Acentos */
+    /* Cor Secundária */
+    --secondary: #00CCFF;                 /* Azul claro para destaque */
+    --secondary-hover: #00A0CC;           /* Azul claro escuro para hover */
+    
+    /* Cores de Acentos */
     --accent-green: #00D98E;              /* Verde brilhante */
     --accent-orange: #FFB347;             /* Laranja mais claro */
     --accent-red: #FF6B6B;                /* Vermelho mais claro */
     
-    /* Escala de Cinzas invertida */
-    --gray-50: #051428;                   /* Preto azulado (fundo) */
-    --gray-100: #0A2342;                  /* Muito escuro azulado */
-    --gray-200: #1A3A52;                  /* Escuro azulado */
-    --gray-300: #2A4A62;                  /* Médio azulado */
-    --gray-400: #6B7280;                  /* Médio cinza */
-    --gray-500: #9CA3AF;                  /* Médio-claro */
-    --gray-600: #CBD5E1;                  /* Claro */
+    /* Escala de Cinzas - TEMA ESCURO */
+    --gray-50: #051428;                   /* Preto azulado muito escuro - Fundo principal */
+    --gray-100: #0A2342;                  /* Muito escuro azulado - Backgrounds secundários */
+    --gray-150: #1A3A52;                  /* Escuro azulado - Backgrounds terciários */
+    --gray-200: #2A4A62;                  /* Médio azulado */
+    --gray-300: #3A5A72;                  /* Médio azulado claro - Bordas */
+    --gray-400: #6B7280;                  /* Cinza médio */
+    --gray-500: #9CA3AF;                  /* Cinza médio-claro */
+    --gray-600: #C5D3E1;                  /* Cinza claro - Textos leves */
     --gray-700: #E5E7EB;                  /* Muito claro */
     --gray-800: #F3F4F6;                  /* Quase branco */
-    --gray-900: #FFFFFF;                  /* Branco */
+    --gray-900: #FFFFFF;                  /* Branco puro */
     
-    /* Aliases para Facilitar */
-    --text-primary: #E0E0E0;              /* Texto principal - Cinza claro */
-    --text-secondary: #A0A0A0;            /* Texto secundário - Cinza médio */
-    --text-light: #707070;                /* Texto claro - Cinza escuro */
+    /* Aliases para Textos */
+    --text-primary: #F3F4F6;              /* Texto principal - Cinza muito claro */
+    --text-secondary: #C5D3E1;            /* Texto secundário - Cinza claro */
+    --text-light: #9CA3AF;                /* Texto leve - Cinza médio */
     --text-inverse: #051428;              /* Texto em fundo claro */
     
-    --bg-primary: #051428;                /* Fundo principal - Azul muito escuro */
-    --bg-secondary: #0A2342;              /* Fundo secundário - Azul profundo */
-    --bg-tertiary: #1A3A52;               /* Fundo terciário - Azul médio */
-    --bg-hover: #0A2342;                  /* Fundo em hover */
+    /* Aliases para Fundos - DIFERENCIADOS POR SEÇÃO */
+    --bg-primary: #051428;                /* Fundo principal - Preto azulado */
+    --bg-secondary: #0A2342;              /* Fundo secundário - Azul escuro (cards, listas) */
+    --bg-tertiary: #1A3A52;               /* Fundo terciário - Azul médio (hover) */
+    --bg-nav: #0A2342;                    /* Fundo da navbar - Azul escuro */
+    --bg-footer: #051428;                 /* Fundo do footer - Preto azulado */
+    --bg-section-alt: #0A2342;            /* Backgrounds alternados para sections */
+    --bg-hover: #1A3A52;                  /* Fundo em hover */
+    --bg-code: #051428;                   /* Fundo de código */
     
+    /* Aliases para Bordas */
+    --border: #2A4A62;                    /* Borda padrão */
     --border-light: #1A3A52;              /* Borda clara */
     --border-medium: #2A4A62;             /* Borda média */
     --border-dark: #3A5A72;               /* Borda escura */
     
     /* Sombras suaves para tema escuro */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 10px 24px rgba(0, 0, 0, 0.5);
     --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.6);
@@ -204,14 +230,15 @@ strong, b {
 
 code {
     font-family: 'Fira Code', monospace;
-    background-color: var(--bg-tertiary);
+    background-color: var(--bg-code);
     padding: var(--spacing-xs) var(--spacing-sm);
     border-radius: var(--radius-sm);
     font-size: 0.95em;
+    color: var(--accent-orange);
 }
 
 pre {
-    background-color: var(--bg-secondary);
+    background-color: var(--bg-code);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
@@ -252,7 +279,7 @@ blockquote {
    ================================ */
 
 .navbar {
-    background-color: var(--bg-primary);
+    background-color: var(--bg-nav);
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
@@ -362,7 +389,7 @@ blockquote {
    ================================ */
 
 .hero {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: #ffffff;
     padding: var(--spacing-3xl) var(--spacing-lg);
     margin-bottom: var(--spacing-3xl);
@@ -478,7 +505,7 @@ blockquote {
     padding: var(--spacing-lg);
     border-radius: 12px;
     margin: var(--spacing-lg) 0;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border);
 }
 
 .pie-chart-wrapper {
@@ -530,12 +557,12 @@ blockquote {
 }
 
 /* ================================
-   ARTIGOS EM DESTAQUE
+   FEATURED ARTICLES
    ================================ */
 
 .featured-articles {
     padding: var(--spacing-3xl) 0;
-    background-color: var(--bg-secondary);
+    background-color: var(--bg-section-alt);
 }
 
 .articles-grid {
@@ -626,7 +653,7 @@ blockquote {
 
 .why-section {
     padding: var(--spacing-3xl) 0;
-    background-color: var(--bg-primary);
+    background-color: var(--bg-section-alt);
 }
 
 .benefits-grid {
@@ -658,12 +685,12 @@ blockquote {
 }
 
 /* ================================
-   ARTIGOS LISTAGEM
+   ALL ARTICLES SECTION
    ================================ */
 
 .all-articles {
     padding: var(--spacing-3xl) 0;
-    background-color: var(--bg-secondary);
+    background-color: var(--bg-primary);
 }
 
 .articles-list {
@@ -770,13 +797,15 @@ blockquote {
     max-width: 800px;
     margin: var(--spacing-3xl) auto;
     padding: 0 var(--spacing-lg);
+    background-color: var(--bg-primary);
 }
 
 .article-full {
     background-color: var(--bg-primary);
     padding: var(--spacing-3xl);
     border-radius: var(--radius-lg);
-    border: 1px solid var(--border);
+    border: none;
+    box-shadow: var(--shadow-md);
 }
 
 .article-header {
@@ -1046,7 +1075,7 @@ blockquote {
    ================================ */
 
 .footer {
-    background-color: var(--primary);
+    background-color: var(--bg-footer);
     color: #ffffff;
     padding: var(--spacing-3xl) var(--spacing-lg) var(--spacing-lg);
     margin-top: auto;
