@@ -30,7 +30,7 @@ Criei este espaço para:
 Você pode me encontrar em:
 - **GitHub**: [github.com/Juerda](https://github.com/Juerda)
 - **LinkedIn**: [linkedin.com/in/jordan-arruda](https://linkedin.com/in/jordan-arruda)
-- **Twitter/X**: [@seu-usuario](https://twitter.com)
+- **Twitter/X**: [@jordandearruda](https://twitter.com/jordandearruda)
 
 Obrigado por visitar! Fique à vontade para explorar os artigos e entrar em contato com dúvidas ou sugestões.
 
