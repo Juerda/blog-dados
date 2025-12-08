@@ -46,57 +46,228 @@ Aqui estão os **termos de busca mais populares** relacionados a compras em nove
 
 A análise por categoria mostra a seguinte distribuição de interesse:
 
-### Eletrônicos e Tecnologia: 35%
-- Smartphones e acessórios
-- Notebooks e computadores
-- Fones de ouvido e áudio
-- Smartwatches e wearables
+<div style="background: #f8f9fa; padding: 30px; border-radius: 12px; margin: 20px 0;">
+  <h3 style="text-align: center; color: #333; margin-top: 0;">Distribuição de Interesses por Categoria</h3>
+  
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 20px 0;">
+    <!-- Eletrônicos -->
+    <div style="background: white; padding: 20px; border-radius: 8px; border-left: 5px solid #3498db; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <div style="display: flex; align-items: center; margin-bottom: 15px;">
+        <div style="width: 50px; height: 50px; background: #3498db; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px; margin-right: 15px;">35%</div>
+        <div>
+          <h4 style="margin: 0; color: #333;">Eletrônicos e Tecnologia</h4>
+          <p style="margin: 5px 0 0 0; color: #7f8c8d; font-size: 12px;">Maior categoria</p>
+        </div>
+      </div>
+      <ul style="margin: 0; padding-left: 20px; color: #555; font-size: 14px;">
+        <li>Smartphones e acessórios</li>
+        <li>Notebooks e computadores</li>
+        <li>Fones de ouvido e áudio</li>
+        <li>Smartwatches e wearables</li>
+      </ul>
+    </div>
 
-### Moda e Vestuário: 25%
-- Roupas de inverno
-- Sapatos e bolsas
-- Acessórios de moda
-- Roupas íntimas
+    <!-- Moda -->
+    <div style="background: white; padding: 20px; border-radius: 8px; border-left: 5px solid #e74c3c; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <div style="display: flex; align-items: center; margin-bottom: 15px;">
+        <div style="width: 50px; height: 50px; background: #e74c3c; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px; margin-right: 15px;">25%</div>
+        <div>
+          <h4 style="margin: 0; color: #333;">Moda e Vestuário</h4>
+          <p style="margin: 5px 0 0 0; color: #7f8c8d; font-size: 12px;">Segunda maior</p>
+        </div>
+      </div>
+      <ul style="margin: 0; padding-left: 20px; color: #555; font-size: 14px;">
+        <li>Roupas de inverno</li>
+        <li>Sapatos e bolsas</li>
+        <li>Acessórios de moda</li>
+        <li>Roupas íntimas</li>
+      </ul>
+    </div>
 
-### Casa e Decoração: 18%
-- Decoração natalina
-- Móveis e organização
-- Produtos de limpeza
-- Itens de cozinha
+    <!-- Casa -->
+    <div style="background: white; padding: 20px; border-radius: 8px; border-left: 5px solid #f39c12; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <div style="display: flex; align-items: center; margin-bottom: 15px;">
+        <div style="width: 50px; height: 50px; background: #f39c12; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px; margin-right: 15px;">18%</div>
+        <div>
+          <h4 style="margin: 0; color: #333;">Casa e Decoração</h4>
+          <p style="margin: 5px 0 0 0; color: #7f8c8d; font-size: 12px;">Terceira posição</p>
+        </div>
+      </div>
+      <ul style="margin: 0; padding-left: 20px; color: #555; font-size: 14px;">
+        <li>Decoração natalina</li>
+        <li>Móveis e organização</li>
+        <li>Produtos de limpeza</li>
+        <li>Itens de cozinha</li>
+      </ul>
+    </div>
 
-### Beleza e Cuidados Pessoais: 12%
-- Cosméticos e maquiagem
-- Produtos de cabelo
-- Skincare e tratamentos
-- Perfumaria
+    <!-- Beleza -->
+    <div style="background: white; padding: 20px; border-radius: 8px; border-left: 5px solid #2ecc71; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <div style="display: flex; align-items: center; margin-bottom: 15px;">
+        <div style="width: 50px; height: 50px; background: #2ecc71; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px; margin-right: 15px;">12%</div>
+        <div>
+          <h4 style="margin: 0; color: #333;">Beleza e Cuidados</h4>
+          <p style="margin: 5px 0 0 0; color: #7f8c8d; font-size: 12px;">Quarta categoria</p>
+        </div>
+      </div>
+      <ul style="margin: 0; padding-left: 20px; color: #555; font-size: 14px;">
+        <li>Cosméticos e maquiagem</li>
+        <li>Produtos de cabelo</li>
+        <li>Skincare e tratamentos</li>
+        <li>Perfumaria</li>
+      </ul>
+    </div>
 
-### Outros (Livros, Games, etc): 10%
-- Livros e e-books
-- Consoles e games
-- Brinquedos
-- Esportes e fitness
+    <!-- Outros -->
+    <div style="background: white; padding: 20px; border-radius: 8px; border-left: 5px solid #9b59b6; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <div style="display: flex; align-items: center; margin-bottom: 15px;">
+        <div style="width: 50px; height: 50px; background: #9b59b6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px; margin-right: 15px;">10%</div>
+        <div>
+          <h4 style="margin: 0; color: #333;">Outros</h4>
+          <p style="margin: 5px 0 0 0; color: #7f8c8d; font-size: 12px;">Diversidade</p>
+        </div>
+      </div>
+      <ul style="margin: 0; padding-left: 20px; color: #555; font-size: 14px;">
+        <li>Livros e e-books</li>
+        <li>Consoles e games</li>
+        <li>Brinquedos</li>
+        <li>Esportes e fitness</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Gráfico de barras -->
+  <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px;">
+    <h4 style="margin-top: 0; color: #333;">Percentual de Buscas por Categoria</h4>
+    <div style="display: flex; flex-direction: column; gap: 15px;">
+      <div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+          <span style="font-weight: bold; color: #333;">Eletrônicos</span>
+          <span style="color: #7f8c8d;">35%</span>
+        </div>
+        <div style="width: 100%; background: #ecf0f1; height: 25px; border-radius: 5px; overflow: hidden;">
+          <div style="width: 35%; background: linear-gradient(90deg, #3498db, #2980b9); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold;">35%</div>
+        </div>
+      </div>
+      <div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+          <span style="font-weight: bold; color: #333;">Moda</span>
+          <span style="color: #7f8c8d;">25%</span>
+        </div>
+        <div style="width: 100%; background: #ecf0f1; height: 25px; border-radius: 5px; overflow: hidden;">
+          <div style="width: 25%; background: linear-gradient(90deg, #e74c3c, #c0392b); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold;">25%</div>
+        </div>
+      </div>
+      <div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+          <span style="font-weight: bold; color: #333;">Casa e Decoração</span>
+          <span style="color: #7f8c8d;">18%</span>
+        </div>
+        <div style="width: 100%; background: #ecf0f1; height: 25px; border-radius: 5px; overflow: hidden;">
+          <div style="width: 18%; background: linear-gradient(90deg, #f39c12, #d68910); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold;">18%</div>
+        </div>
+      </div>
+      <div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+          <span style="font-weight: bold; color: #333;">Beleza</span>
+          <span style="color: #7f8c8d;">12%</span>
+        </div>
+        <div style="width: 100%; background: #ecf0f1; height: 25px; border-radius: 5px; overflow: hidden;">
+          <div style="width: 12%; background: linear-gradient(90deg, #2ecc71, #27ae60); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold;">12%</div>
+        </div>
+      </div>
+      <div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+          <span style="font-weight: bold; color: #333;">Outros</span>
+          <span style="color: #7f8c8d;">10%</span>
+        </div>
+        <div style="width: 100%; background: #ecf0f1; height: 25px; border-radius: 5px; overflow: hidden;">
+          <div style="width: 10%; background: linear-gradient(90deg, #9b59b6, #8e44ad); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold;">10%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ## Gráfico: Comparativo Novembro 2024 vs 2025
 
-```
-Índice de Buscas por Semana
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 12px; margin: 20px 0;">
+  <h3 style="color: white; margin-top: 0; text-align: center;">Índice de Buscas por Semana</h3>
+  
+  <div style="display: flex; gap: 20px; margin: 20px 0; flex-wrap: wrap;">
+    <!-- Semana 1 -->
+    <div style="flex: 1; min-width: 200px; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; color: white;">
+      <p style="margin: 0 0 10px 0; font-weight: bold;">Semana 1 (1-7 Nov)</p>
+      <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 4px; margin: 5px 0;">
+        <div style="display: flex; align-items: center; margin: 5px 0;">
+          <span style="width: 40px;">2024:</span>
+          <div style="flex: 1; background: #2ecc71; height: 20px; border-radius: 3px; margin: 0 10px; width: 42%;"></div>
+          <span>42</span>
+        </div>
+        <div style="display: flex; align-items: center;">
+          <span style="width: 40px;">2025:</span>
+          <div style="flex: 1; background: #3498db; height: 20px; border-radius: 3px; margin: 0 10px; width: 32%;"></div>
+          <span>32</span>
+        </div>
+      </div>
+      <p style="font-size: 12px; margin: 10px 0 0 0; opacity: 0.8;">Início mais discreto</p>
+    </div>
 
-Semana 1 (1-7 Nov):
-2024: ████████░░ 42
-2025: ██████░░░░ 32  (Início mais discreto)
+    <!-- Semana 2 -->
+    <div style="flex: 1; min-width: 200px; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; color: white;">
+      <p style="margin: 0 0 10px 0; font-weight: bold;">Semana 2 (8-14 Nov)</p>
+      <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 4px; margin: 5px 0;">
+        <div style="display: flex; align-items: center; margin: 5px 0;">
+          <span style="width: 40px;">2024:</span>
+          <div style="flex: 1; background: #2ecc71; height: 20px; border-radius: 3px; margin: 0 10px; width: 35%;"></div>
+          <span>35</span>
+        </div>
+        <div style="display: flex; align-items: center;">
+          <span style="width: 40px;">2025:</span>
+          <div style="flex: 1; background: #3498db; height: 20px; border-radius: 3px; margin: 0 10px; width: 46%;"></div>
+          <span>46</span>
+        </div>
+      </div>
+      <p style="font-size: 12px; margin: 10px 0 0 0; opacity: 0.8;">Black Friday em alta</p>
+    </div>
 
-Semana 2 (8-14 Nov):
-2024: ██████░░░░ 35
-2025: ████████░░ 46  (Anúncios de Black Friday crescem)
+    <!-- Semana 3 -->
+    <div style="flex: 1; min-width: 200px; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; color: white;">
+      <p style="margin: 0 0 10px 0; font-weight: bold;">Semana 3 (15-21 Nov)</p>
+      <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 4px; margin: 5px 0;">
+        <div style="display: flex; align-items: center; margin: 5px 0;">
+          <span style="width: 40px;">2024:</span>
+          <div style="flex: 1; background: #e74c3c; height: 20px; border-radius: 3px; margin: 0 10px; width: 58%;"></div>
+          <span>58</span>
+        </div>
+        <div style="display: flex; align-items: center;">
+          <span style="width: 40px;">2025:</span>
+          <div style="flex: 1; background: #e67e22; height: 20px; border-radius: 3px; margin: 0 10px; width: 52%;"></div>
+          <span>52</span>
+        </div>
+      </div>
+      <p style="font-size: 12px; margin: 10px 0 0 0; opacity: 0.8;">Pico de Black Friday</p>
+    </div>
 
-Semana 3 (15-21 Nov):
-2024: ██████████ 58  (Semana da Black Friday)
-2025: ███████░░░ 52  (Tendência semelhante)
-
-Semana 4 (22-30 Nov):
-2024: ████████░░ 44  (Após Black Friday)
-2025: ██████░░░░ 38  (Mercado mais estável)
-```
+    <!-- Semana 4 -->
+    <div style="flex: 1; min-width: 200px; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; color: white;">
+      <p style="margin: 0 0 10px 0; font-weight: bold;">Semana 4 (22-30 Nov)</p>
+      <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 4px; margin: 5px 0;">
+        <div style="display: flex; align-items: center; margin: 5px 0;">
+          <span style="width: 40px;">2024:</span>
+          <div style="flex: 1; background: #9b59b6; height: 20px; border-radius: 3px; margin: 0 10px; width: 44%;"></div>
+          <span>44</span>
+        </div>
+        <div style="display: flex; align-items: center;">
+          <span style="width: 40px;">2025:</span>
+          <div style="flex: 1; background: #8e44ad; height: 20px; border-radius: 3px; margin: 0 10px; width: 38%;"></div>
+          <span>38</span>
+        </div>
+      </div>
+      <p style="font-size: 12px; margin: 10px 0 0 0; opacity: 0.8;">Mercado estável</p>
+    </div>
+  </div>
+</div>
 
 ## Insights e Recomendações
 
