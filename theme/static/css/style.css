@@ -1320,12 +1320,25 @@ blockquote {
     background-color: var(--bg-primary);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
+    overflow: visible;
 }
 
-#disqus_thread {
+#auth-section { margin-bottom: var(--spacing-lg); }
+.comment-form { display: block; margin-bottom: var(--spacing-xl); }
+.comment-textarea {
     width: 100%;
     max-width: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
 }
+.comments-list { width: 100%; }
+.btn { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border-radius: var(--radius-md); }
+.btn-primary { background: var(--primary); color: #fff; border: none; padding: 10px 16px; }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-link { background: none; border: none; color: var(--primary); cursor: pointer; }
 
 .comments-intro {
     margin-bottom: var(--spacing-xl);

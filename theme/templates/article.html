@@ -263,26 +263,33 @@
         {% endif %}
 
         <!-- Comments Section -->
-        <section class="comments-section">
+        <section class="comments-section" id="comments-section">
             <h3>Comentários</h3>
-            <p class="comments-intro">💬 Faça login com sua conta do <strong>Google</strong>, <strong>Facebook</strong> ou <strong>Twitter</strong> para comentar.</p>
+            <p class="comments-intro">💬 Entre com sua conta do <strong>Google</strong> para comentar.</p>
 
-            <!-- Disqus Embed -->
-            <div id="disqus_thread"></div>
-            <script>
-            var disqus_config = function () {
-                this.page.url = '{{ SITEURL }}/{{ article.url }}';
-                this.page.identifier = '{{ article.slug }}';
-            };
-            (function() {
-                var d = document, s = d.createElement('script');
-                s.src = 'https://YOUR_DISQUS_SHORTNAME.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                s.async = true;
-                (d.head || d.body).appendChild(s);
-            })();
-            </script>
-            <noscript>Por favor, habilite JavaScript para ver os comentários via <a href="https://disqus.com/" rel="noopener" target="_blank">Disqus</a>.</noscript>
+            <!-- Auth Section -->
+            <div id="auth-section" class="auth-section">
+                <button id="google-login-btn" class="btn btn-primary" onclick="signInWithGoogle()">Entrar com Google</button>
+            </div>
+
+            <!-- Comment Form -->
+            <div id="comment-form" class="comment-form" style="display:none;">
+                <div class="user-info">
+                    <span id="user-name"></span> · <span id="user-email"></span>
+                    <button class="btn btn-link" onclick="signOut()">Sair</button>
+                </div>
+                <textarea id="comment-text" rows="4" placeholder="Escreva seu comentário..." class="comment-textarea"></textarea>
+                <button class="btn btn-primary" onclick="postComment()">Enviar comentário</button>
+            </div>
+
+            <!-- Comments List -->
+            <div id="comments-list" class="comments-list"></div>
+
+            <!-- Firebase SDKs -->
+            <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+            <script src="/theme/js/comments.js" defer></script>
         </section>
     </article>
 

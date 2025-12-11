@@ -83,16 +83,20 @@ function signUp(email, password, name) {
         });
 }
 
-// Sign in
-function signIn(email, password) {
+// Sign in with Google
+function signInWithGoogle() {
     if (!firebaseInitialized || typeof firebase === 'undefined') {
         alert('Sistema de comentários não disponível');
         return;
     }
-    
-    firebase.auth().signInWithEmailAndPassword(email, password)
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+        .then(function() {
+            // Carregar comentários após login
+            loadComments();
+        })
         .catch(function(error) {
-            alert('Erro ao fazer login: ' + error.message);
+            alert('Erro ao fazer login com Google: ' + error.message);
         });
 }
 

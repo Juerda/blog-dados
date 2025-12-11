@@ -355,27 +355,37 @@ Este blog é dedicado a análise de dados, Python e tecnologia.
 
 ## 🎯 Funcionalidades Avançadas
 
-### 1. Sistema de Comentários (Disqus)
+### 1. Sistema de Comentários (Firebase + Google)
 
-Os comentários são gerenciados pelo **Disqus**, que permite login com **Google**, **Facebook**, **Twitter** e **Disqus**.
+Os comentários usam **Firebase Auth** (login com **Google**) e **Firebase Realtime Database** para armazenar mensagens.
 
 **Como funciona:**
-1. ✅ Usuários fazem login com conta Google/Facebook/Twitter/Disqus
-2. ✅ Comentam diretamente no artigo
-3. ✅ Moderação e notificações pelo painel Disqus
-4. ✅ Suporte a threads e votos
-5. ✅ Suporte a múltiplos provedores de login
+1. ✅ Login com conta Google (popup seguro)
+2. ✅ Comentários salvos por artigo com ordenação por data
+3. ✅ Interface leve e sem anúncios
+4. ✅ Fácil moderação/editável via console do Firebase
 
-**Configuração necessária:**
-- Crie um site no Disqus: https://disqus.com/ 
-- Obtenha seu `shortname` (ex.: `meu-blog`)
-- No arquivo `theme/templates/article.html`, substitua `YOUR_DISQUS_SHORTNAME` pelo seu shortname real.
+**Como configurar:**
+1. Acesse https://console.firebase.google.com e crie um projeto.
+2. Ative Authentication → Sign-in method → habilite Google.
+3. Ative Realtime Database → modo bloqueado → crie regras:
+     ```json
+     {
+         "rules": {
+             ".read": true,
+             "comments": {
+                 ".write": "auth != null"
+             }
+         }
+     }
+     ```
+4. No projeto, copie as credenciais do app web (apiKey, authDomain, projectId, etc.).
+5. Preencha em `theme/static/js/comments.js` o objeto `FIREBASE_CONFIG`.
 
-**Privacidade e Ads:**
-- O plano gratuito pode exibir anúncios. Você pode optar por planos pagos para remover branding/ads.
-
-**Onde está o embed:**
-- `theme/templates/article.html` → Seção `<!-- Disqus Embed -->`
+**Arquivos relevantes:**
+- `theme/templates/article.html` → seção de comentários (login + formulário + lista)
+- `theme/static/js/comments.js` → lógica de autenticação e CRUD de comentários
+- `theme/static/css/style.css` → estilos da seção de comentários
 
 ---
 
