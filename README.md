@@ -355,17 +355,19 @@ Este blog é dedicado a análise de dados, Python e tecnologia.
 
 ## 🎯 Funcionalidades Avançadas
 
-### 1. Sistema de Comentários (Firebase + Google)
+### 1. Sistema de Comentários (Firebase + Google / Supabase Open Source)
 
-Os comentários usam **Firebase Auth** (login com **Google**) e **Firebase Realtime Database** para armazenar mensagens.
+Os comentários podem usar:
+- **Firebase Auth + Realtime Database** (rápido, gerenciado)
+- **Supabase (Postgres open source)** com políticas RLS (open source, sem lock-in)
 
-**Como funciona:**
-1. ✅ Login com conta Google (popup seguro)
+**Como funciona (ambos):**
+1. ✅ Login com conta Google (após configurar no provedor)
 2. ✅ Comentários salvos por artigo com ordenação por data
 3. ✅ Interface leve e sem anúncios
-4. ✅ Fácil moderação/editável via console do Firebase
+4. ✅ Moderação simples via console (Firebase) ou SQL (Supabase)
 
-**Como configurar:**
+**Como configurar (Firebase):**
 1. Acesse https://console.firebase.google.com e crie um projeto.
 2. Ative Authentication → Sign-in method → habilite Google.
 3. Ative Realtime Database → modo bloqueado → crie regras:
@@ -382,9 +384,31 @@ Os comentários usam **Firebase Auth** (login com **Google**) e **Firebase Realt
 4. No projeto, copie as credenciais do app web (apiKey, authDomain, projectId, etc.).
 5. Preencha em `theme/static/js/comments.js` o objeto `FIREBASE_CONFIG`.
 
+**Como configurar (Supabase - Open Source):**
+1. Crie um projeto em https://supabase.com (ou self-host com Docker).
+2. Em `Table editor`, crie a tabela `comments`:
+    ```sql
+    create table public.comments (
+      id uuid primary key default gen_random_uuid(),
+      post_slug text not null,
+      author text,
+      email text,
+      text text not null,
+      inserted_at timestamptz default now(),
+      likes int default 0
+    );
+    ```
+3. Ative RLS e crie políticas:
+    - Leitura pública: `using (true)`
+    - Escrita autenticada: `with check (auth.uid() is not null)`
+    (Opcionalmente permitir escrita pública temporária: `with check (true)`).
+4. Em Settings → Auth, habilite Google se desejar login.
+5. Copie `SUPABASE_URL` e `SUPABASE_ANON_KEY` (Settings → API) e preencha em `theme/static/js/comments_supabase.js`.
+
 **Arquivos relevantes:**
 - `theme/templates/article.html` → seção de comentários (login + formulário + lista)
 - `theme/static/js/comments.js` → lógica de autenticação e CRUD de comentários
+- `theme/static/js/comments_supabase.js` → alternativa open source usando Supabase
 - `theme/static/css/style.css` → estilos da seção de comentários
 
 ---
