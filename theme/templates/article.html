@@ -271,7 +271,7 @@
 
             <!-- Auth Section -->
             <div id="auth-section" class="auth-section">
-                <button id="google-login-btn" class="btn btn-primary" onclick="signInWithGoogle()">Entrar com Google</button>
+                <button id="google-login-btn" class="btn btn-primary" onclick="event.preventDefault(); signInWithGoogle();">Entrar com Google</button>
             </div>
 
             <!-- Comment Form -->
@@ -281,7 +281,7 @@
                     <button class="btn btn-link" onclick="signOut()">Sair</button>
                 </div>
                 <textarea id="comment-text" rows="4" placeholder="Escreva seu comentário..." class="comment-textarea"></textarea>
-                <button class="btn btn-primary" onclick="postComment()">Enviar comentário</button>
+                <button class="btn btn-primary" onclick="event.preventDefault(); postComment();">Enviar comentário</button>
             </div>
 
             <!-- Comments List -->

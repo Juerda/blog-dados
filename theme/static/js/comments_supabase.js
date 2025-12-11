@@ -21,8 +21,9 @@ function initializeSupabase() {
     updateAuthUI();
   });
   
-  // Initial UI update
+  // Initial UI update and load comments for everyone
   updateAuthUI();
+  loadCommentsSupabase();
 }
 
 async function postCommentSupabase() {
@@ -63,7 +64,10 @@ async function signInWithGoogle() {
   const { error } = await supabaseClient.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: window.location.href
+      redirectTo: window.location.href,
+      queryParams: {
+        prompt: 'select_account'
+      }
     }
   });
   if (error) {
