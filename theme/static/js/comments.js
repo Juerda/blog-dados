@@ -1,13 +1,32 @@
 // Comments System with Firebase
 // Initialize Firebase (configure with your project)
 const FIREBASE_CONFIG = {
+    // Required keys: replace with your Firebase Web App credentials
     apiKey: "YOUR_API_KEY",
-    authDomain: "your-project.firebaseapp.com",
-    projectId: "your-project-id",
-    storageBucket: "your-project.appspot.com",
-    messagingSenderId: "your-messaging-id",
-    appId: "your-app-id"
+    appId: "YOUR_APP_ID",
+    measurementId: "YOUR_MEASUREMENT_ID",
+
+    // Pre-filled based on project info provided
+    projectId: "jordan-arruda-site",
+    authDomain: "jordan-arruda-site.firebaseapp.com",
+    databaseURL: "https://jordan-arruda-site-default-rtdb.firebaseio.com",
+    storageBucket: "jordan-arruda-site.appspot.com",
+    messagingSenderId: "568760583710"
 };
+
+// Validate Firebase config and guide the user if incomplete
+function validateFirebaseConfig() {
+    const required = ["apiKey", "appId", "projectId", "authDomain", "databaseURL"];
+    const missing = required.filter(k => !FIREBASE_CONFIG[k] || String(FIREBASE_CONFIG[k]).startsWith("YOUR_"));
+    if (missing.length) {
+        console.warn(
+            "Configuração do Firebase incompleta. Campos faltando:", missing.join(", "),
+            "\nComo resolver: Firebase Console → Project Settings → General → suas apps (Web) → copie o SDK Config e substitua os valores em FIREBASE_CONFIG."
+        );
+        return false;
+    }
+    return true;
+}
 
 // Firebase initialization
 let firebaseInitialized = false;
@@ -17,6 +36,7 @@ let currentUser = null;
 function initializeFirebase() {
     if (typeof firebase !== 'undefined' && !firebaseInitialized) {
         try {
+            if (!validateFirebaseConfig()) return;
             firebase.initializeApp(FIREBASE_CONFIG);
             firebaseInitialized = true;
             
@@ -29,7 +49,7 @@ function initializeFirebase() {
                 }
             });
         } catch (e) {
-            console.warn('Firebase not available for comments');
+            console.warn('Firebase não disponível para comentários:', e?.message || e);
         }
     }
 }
