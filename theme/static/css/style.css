@@ -1318,9 +1318,9 @@ blockquote {
     width: 100%;
 }
 
-/* Hide Giscus branding */
 .giscus-frame {
     border: none !important;
+    margin-bottom: var(--spacing-lg);
 }
 
 iframe.giscus-frame {
@@ -1328,9 +1328,16 @@ iframe.giscus-frame {
     min-height: 150px;
 }
 
-/* Hide powered by footer */
-.color-text-secondary {
+/* Ocultar marca d'água e elementos promocionais do Giscus */
+.giscus .color-text-secondary,
+.giscus a[href*="giscus.app"],
+.giscus [class*="powered"],
+.giscus footer {
     display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
 }
 
 /* ================================

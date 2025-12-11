@@ -371,6 +371,9 @@ Os comentários são gerenciados pelo **Giscus**, que usa GitHub Discussions.
 - Categoria: General
 - Tema: `preferred_color_scheme` (automático)
 - Idioma: Português (pt)
+- **Autenticação:** Apenas GitHub (obrigatório pelo sistema)
+
+> ℹ️ **Nota sobre autenticação:** O Giscus usa exclusivamente autenticação GitHub, pois os comentários são armazenados no GitHub Discussions. Não há suporte nativo para Google, Facebook ou outras redes sociais. Se precisar de múltiplos provedores de login, considere alternativas como Disqus, Commento ou Hyvor Talk (porém são pagos ou com limitações).
 
 **Para personalizar:**
 1. Acesse: https://giscus.app/
