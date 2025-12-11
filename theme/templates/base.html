@@ -51,7 +51,7 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ SITEURL }}{% block canonical %}{% endblock %}">
 </head>
-<body>
+<body {% block body_attrs %}{% endblock %}>
     <!-- Navigation -->
     <nav class="navbar" role="navigation" aria-label="Menu principal">
         <div class="navbar-container">

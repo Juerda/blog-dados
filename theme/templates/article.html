@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block body_attrs %}data-post-slug="{{ article.slug }}"{% endblock %}
+
 {% block title %}{{ article.title }} - {{ SITENAME }}{% endblock %}
 
 {% block meta_description %}{{ article.summary|striptags if article.summary else article.content[:150]|striptags }}{% endblock %}
