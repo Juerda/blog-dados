@@ -221,33 +221,45 @@ A análise por categoria mostra a seguinte distribuição de interesse:
 </div>
 
 <script>
-  // Dados para o gráfico de pizza
-  const categoryData = [
-    { label: 'Eletrônicos', value: 35, percentage: 35 },
-    { label: 'Moda', value: 25, percentage: 25 },
-    { label: 'Casa', value: 18, percentage: 18 },
-    { label: 'Beleza', value: 12, percentage: 12 },
-    { label: 'Outros', value: 10, percentage: 10 }
-  ];
-
-  const categoryColors = ['#3498db', '#e74c3c', '#f39c12', '#2ecc71', '#9b59b6'];
-
-  // Inicializar gráfico de pizza
-  const pieChart = new PieChart('categoryPieChart', categoryData, categoryColors);
-  
-  // Armazenar os dados para exportação CSV
-  window.pieCharts = window.pieCharts || {};
-  window.pieCharts.categoryPieChart = {
-    getData: function() {
-      return [
-        { Categoria: 'Eletrônicos', Percentual: '35%', Buscas: 'Alto' },
-        { Categoria: 'Moda', Percentual: '25%', Buscas: 'Médio-Alto' },
-        { Categoria: 'Casa e Decoração', Percentual: '18%', Buscas: 'Médio' },
-        { Categoria: 'Beleza e Cuidados', Percentual: '12%', Buscas: 'Médio' },
-        { Categoria: 'Outros', Percentual: '10%', Buscas: 'Baixo' }
-      ];
+(function() {
+  // Aguardar carregamento da classe PieChart
+  function initChart() {
+    if (typeof PieChart === 'undefined') {
+      setTimeout(initChart, 100);
+      return;
     }
-  };
+    
+    // Dados para o gráfico de pizza
+    const categoryData = [
+      { label: 'Eletrônicos', value: 35, percentage: 35 },
+      { label: 'Moda', value: 25, percentage: 25 },
+      { label: 'Casa', value: 18, percentage: 18 },
+      { label: 'Beleza', value: 12, percentage: 12 },
+      { label: 'Outros', value: 10, percentage: 10 }
+    ];
+
+    const categoryColors = ['#3498db', '#e74c3c', '#f39c12', '#2ecc71', '#9b59b6'];
+
+    // Inicializar gráfico de pizza
+    const pieChart = new PieChart('categoryPieChart', categoryData, categoryColors);
+    
+    // Armazenar os dados para exportação CSV
+    window.pieCharts = window.pieCharts || {};
+    window.pieCharts.categoryPieChart = {
+      getData: function() {
+        return [
+          { Categoria: 'Eletrônicos', Percentual: '35%', Buscas: 'Alto' },
+          { Categoria: 'Moda', Percentual: '25%', Buscas: 'Médio-Alto' },
+          { Categoria: 'Casa e Decoração', Percentual: '18%', Buscas: 'Médio' },
+          { Categoria: 'Beleza e Cuidados', Percentual: '12%', Buscas: 'Médio' },
+          { Categoria: 'Outros', Percentual: '10%', Buscas: 'Baixo' }
+        ];
+      }
+    };
+  }
+  
+  initChart();
+})();
 </script>
 
 ## Gráfico: Comparativo Novembro 2024 vs 2025

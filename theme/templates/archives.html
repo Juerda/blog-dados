@@ -13,7 +13,7 @@
 
     <div class="blog-content">
         <div class="articles-list-full">
-            {% for article in articles %}
+            {% for article in articles|sort(attribute='date', reverse=True) %}
             <article class="blog-item">
                 <div class="blog-item-content">
                     <div class="blog-item-meta">
@@ -35,6 +35,13 @@
             </article>
             {% endfor %}
         </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="back-button-section" style="margin-top: 60px; padding: 40px 0; border-top: 1px solid var(--border);">
+        <a href="/" class="back-button" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: var(--primary); color: white; text-decoration: none; border-radius: 8px; font-weight: 500; transition: all 0.3s ease;">
+            <i class="fas fa-arrow-left"></i> Voltar para Home
+        </a>
     </div>
 </div>
 {% endblock %}

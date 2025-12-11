@@ -19,23 +19,33 @@ class PieChart {
     }
     
     initialize() {
-        // Get actual canvas dimensions
-        const rect = this.canvas.getBoundingClientRect();
-        this.canvas.width = rect.width;
-        this.canvas.height = rect.height;
+        // Get actual canvas dimensions from container
+        const container = this.canvas.parentElement;
+        const rect = container ? container.getBoundingClientRect() : this.canvas.getBoundingClientRect();
+        
+        // Set canvas dimensions
+        const width = Math.max(rect.width - 40, 250);
+        const height = Math.max(rect.height - 40, 250);
         
         // Set DPI scaling for high-res displays
         const dpr = window.devicePixelRatio || 1;
-        this.canvas.width = rect.width * dpr;
-        this.canvas.height = rect.height * dpr;
+        this.canvas.width = width * dpr;
+        this.canvas.height = height * dpr;
+        
+        // Style the canvas display size
+        this.canvas.style.width = width + 'px';
+        this.canvas.style.height = height + 'px';
         
         if (this.ctx) {
             this.ctx.scale(dpr, dpr);
+            // Fill canvas background with white
+            this.ctx.fillStyle = '#FFFFFF';
+            this.ctx.fillRect(0, 0, width, height);
         }
         
-        this.centerX = (rect.width) / 2;
-        this.centerY = (rect.height) / 2;
-        this.radius = Math.min(rect.width, rect.height) / 2 - 30;
+        this.centerX = width / 2;
+        this.centerY = height / 2;
+        this.radius = Math.min(width, height) / 2 - 40;
         
         if (this.data && this.data.length > 0) {
             this.draw();

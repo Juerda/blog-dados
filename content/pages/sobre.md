@@ -4,7 +4,7 @@ Save_as: sobre/index.html
 
 <div style="text-align: center; margin-bottom: 40px;">
   <div style="display: inline-block; margin-bottom: 20px;">
-    <img src="/theme/static/images/profile.svg" alt="Jordan Arruda" style="width: 200px; height: 200px; border-radius: 50%; border: 4px solid #3b82f6; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+    <img src="/theme/static/images/profile.jpg" alt="Jordan Arruda" style="width: 200px; height: 200px; border-radius: 50%; border: 4px solid #3b82f6; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
   </div>
   <h1 style="margin: 20px 0 10px 0; font-size: 2.5em;">Jordan Arruda</h1>
   <p style="color: #64748b; font-size: 1.1em; margin: 0;">Analista de Dados | Python Developer | Data Enthusiast</p>
