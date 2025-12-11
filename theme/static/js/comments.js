@@ -2,15 +2,15 @@
 // Initialize Firebase (configure with your project)
 const FIREBASE_CONFIG = {
     // Required keys: replace with your Firebase Web App credentials
-    apiKey: "BPXt-MgkkVGVLbuquldNnGn5R5BCU7RwXLR8kzoFTZtrJ6uy0Xnq0KliN89sR-860LeImAsLu7MG-xshGkxlOhg",
-    appId: "YOUR_APP_ID",
-    measurementId: "YOUR_MEASUREMENT_ID",
+    apiKey: "AIzaSyAhIQWfb38tETcHp32mt2FBJCHhvUNnIs0",
+    appId: "1:568760583710:web:61b63fd0c3295d6e04d00f",
+    measurementId: "G-KLFY7NRW0L",
 
     // Pre-filled based on project info provided
     projectId: "jordan-arruda-site",
     authDomain: "jordan-arruda-site.firebaseapp.com",
     databaseURL: "https://jordan-arruda-site-default-rtdb.firebaseio.com",
-    storageBucket: "jordan-arruda-site.appspot.com",
+    storageBucket: "jordan-arruda-site.firebasestorage.app",
     messagingSenderId: "568760583710"
 };
 
