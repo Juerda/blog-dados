@@ -1313,51 +1313,24 @@ blockquote {
     font-size: var(--font-size-base);
 }
 
-/* Giscus Comments Section */
-.giscus, 
-.giscus-frame {
-    width: 100% !important;
-    max-width: 100% !important;
+/* Comments Section (Disqus) */
+.comments-section {
+    margin: var(--spacing-2xl) 0;
+    padding: var(--spacing-2xl);
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
 }
 
-/* Fix iframe container to prevent cutting */
-.giscus-frame {
-    border: none !important;
-    margin-bottom: var(--spacing-lg);
-    overflow: visible !important;
+#disqus_thread {
+    width: 100%;
+    max-width: 100%;
 }
 
-/* Ensure iframe scales properly without cutting */
-iframe.giscus-frame {
-    width: 100% !important;
-    height: auto !important;
-    min-height: 200px !important;
-    max-width: 100% !important;
-    overflow: visible !important;
-    border: none !important;
-}
-
-/* Hide Giscus branding footer completely */
-.giscus .color-text-secondary,
-.giscus a[href*="giscus.app"],
-.giscus [class*="powered"],
-.giscus [class*="by-giscus"],
-.giscus footer,
-.giscus .footer {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    height: 0 !important;
-    max-height: 0 !important;
-    overflow: hidden !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-/* Additional CSS to target nested Giscus branding */
-.giscus-frame-container {
-    overflow: visible !important;
-    width: 100% !important;
+.comments-intro {
+    margin-bottom: var(--spacing-xl);
+    color: var(--text-secondary);
+    font-size: var(--font-size-base);
 }
 
 /* Ensure comments section has proper spacing */

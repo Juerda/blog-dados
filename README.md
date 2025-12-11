@@ -355,31 +355,27 @@ Este blog é dedicado a análise de dados, Python e tecnologia.
 
 ## 🎯 Funcionalidades Avançadas
 
-### 1. Sistema de Comentários (Giscus)
+### 1. Sistema de Comentários (Disqus)
 
-Os comentários são gerenciados pelo **Giscus**, que usa GitHub Discussions.
+Os comentários são gerenciados pelo **Disqus**, que permite login com **Google**, **Facebook**, **Twitter** e **Disqus**.
 
 **Como funciona:**
-1. ✅ Usuários fazem login com conta GitHub
+1. ✅ Usuários fazem login com conta Google/Facebook/Twitter/Disqus
 2. ✅ Comentam diretamente no artigo
-3. ✅ Comentários ficam armazenados no GitHub Discussions
-4. ✅ Suporte a reações (👍, ❤️, 🎉, etc)
-5. ✅ Tema automático (claro/escuro seguindo o site)
+3. ✅ Moderação e notificações pelo painel Disqus
+4. ✅ Suporte a threads e votos
+5. ✅ Suporte a múltiplos provedores de login
 
-**Configuração atual:**
-- Repositório: `Juerda/blog-dados`
-- Categoria: General
-- Tema: `preferred_color_scheme` (automático)
-- Idioma: Português (pt)
-- **Autenticação:** Apenas GitHub (obrigatório pelo sistema)
+**Configuração necessária:**
+- Crie um site no Disqus: https://disqus.com/ 
+- Obtenha seu `shortname` (ex.: `meu-blog`)
+- No arquivo `theme/templates/article.html`, substitua `YOUR_DISQUS_SHORTNAME` pelo seu shortname real.
 
-> ℹ️ **Nota sobre autenticação:** O Giscus usa exclusivamente autenticação GitHub, pois os comentários são armazenados no GitHub Discussions. Não há suporte nativo para Google, Facebook ou outras redes sociais. Se precisar de múltiplos provedores de login, considere alternativas como Disqus, Commento ou Hyvor Talk (porém são pagos ou com limitações).
+**Privacidade e Ads:**
+- O plano gratuito pode exibir anúncios. Você pode optar por planos pagos para remover branding/ads.
 
-**Para personalizar:**
-1. Acesse: https://giscus.app/
-2. Configure suas preferências
-3. Copie o código gerado
-4. Cole em `theme/templates/article.html` na seção `<!-- Comments Section -->`
+**Onde está o embed:**
+- `theme/templates/article.html` → Seção `<!-- Disqus Embed -->`
 
 ---
 
