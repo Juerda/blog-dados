@@ -1318,6 +1318,21 @@ blockquote {
     width: 100%;
 }
 
+/* Hide Giscus branding */
+.giscus-frame {
+    border: none !important;
+}
+
+iframe.giscus-frame {
+    height: auto !important;
+    min-height: 150px;
+}
+
+/* Hide powered by footer */
+.color-text-secondary {
+    display: none !important;
+}
+
 /* ================================
    RESPONSIVE DESIGN
    ================================ */
