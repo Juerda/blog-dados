@@ -2,7 +2,7 @@
 // Initialize Firebase (configure with your project)
 const FIREBASE_CONFIG = {
     // Required keys: replace with your Firebase Web App credentials
-    apiKey: "YOUR_API_KEY",
+    apiKey: "BPXt-MgkkVGVLbuquldNnGn5R5BCU7RwXLR8kzoFTZtrJ6uy0Xnq0KliN89sR-860LeImAsLu7MG-xshGkxlOhg",
     appId: "YOUR_APP_ID",
     measurementId: "YOUR_MEASUREMENT_ID",
 

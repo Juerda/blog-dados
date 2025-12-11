@@ -1,7 +1,7 @@
 // Comments System with Supabase (Open Source Postgres)
 // Fill these with your project values from Supabase → Settings → API
-const SUPABASE_URL = "YOUR_SUPABASE_URL"; // e.g. https://xyzcompany.supabase.co
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"; // public anon key
+const SUPABASE_URL = "https://lwagfaeurjismaylovya.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3YWdmYWV1cmppc21heWxvdnlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU0Njc5MDcsImV4cCI6MjA4MTA0MzkwN30.na7FDNMYood3xJuBco_MSWk9t1xNDqRNfkxe74msIlw";
 
 let supabaseClient = null;
 
@@ -15,8 +15,14 @@ function initializeSupabase() {
     return;
   }
   supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  // Carregar comentários ao iniciar
-  loadCommentsSupabase();
+  
+  // Listen to auth changes
+  supabaseClient.auth.onAuthStateChange((event, session) => {
+    updateAuthUI();
+  });
+  
+  // Initial UI update
+  updateAuthUI();
 }
 
 async function postCommentSupabase() {
@@ -27,9 +33,8 @@ async function postCommentSupabase() {
   const postSlug = document.body.getAttribute('data-post-slug');
   if (!postSlug) return;
 
-  const profile = await supabaseClient.auth.getUser();
-  const user = profile?.data?.user || null;
-  const author = user?.user_metadata?.name || user?.email || 'Convidado';
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  const author = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email || 'Convidado';
   const email = user?.email || null;
 
   const { error } = await supabaseClient.from('comments').insert({
@@ -43,6 +48,54 @@ async function postCommentSupabase() {
   if (error) { alert('Erro ao postar: ' + error.message); return; }
   if (textarea) textarea.value = '';
   await loadCommentsSupabase();
+}
+
+// Wrapper functions to match Firebase API naming
+function postComment() {
+  postCommentSupabase();
+}
+
+async function signInWithGoogle() {
+  if (!supabaseClient) {
+    alert('Sistema de comentários não disponível');
+    return;
+  }
+  const { error } = await supabaseClient.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: window.location.href
+    }
+  });
+  if (error) {
+    alert('Erro ao fazer login com Google: ' + error.message);
+  }
+}
+
+async function signOut() {
+  if (supabaseClient) {
+    await supabaseClient.auth.signOut();
+    updateAuthUI();
+  }
+}
+
+function updateAuthUI() {
+  supabaseClient.auth.getUser().then(({ data: { user } }) => {
+    const authSection = document.getElementById('auth-section');
+    const commentForm = document.getElementById('comment-form');
+    const userNameEl = document.getElementById('user-name');
+    const userEmailEl = document.getElementById('user-email');
+
+    if (user) {
+      if (authSection) authSection.style.display = 'none';
+      if (commentForm) commentForm.style.display = 'block';
+      if (userNameEl) userNameEl.textContent = user.user_metadata?.full_name || user.user_metadata?.name || 'Usuário';
+      if (userEmailEl) userEmailEl.textContent = user.email || '';
+      loadCommentsSupabase();
+    } else {
+      if (authSection) authSection.style.display = 'block';
+      if (commentForm) commentForm.style.display = 'none';
+    }
+  });
 }
 
 async function loadCommentsSupabase() {
