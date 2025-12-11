@@ -3,32 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{% block meta_description %}{{ SITENAME }} - Análises de dados e insights para pessoas comuns{% endblock %}">
-    <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="{% block meta_description %}Blog pessoal de Jordan Arruda sobre análise de dados, Python e tecnologia. Compartilhando conhecimento e insights sobre ciência de dados.{% endblock %}">
+    <meta name="author" content="Jordan Arruda">
+    <meta name="keywords" content="{% block meta_keywords %}análise de dados, python, ciência de dados, data science, tecnologia, programação, jordan arruda{% endblock %}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:url" content="{{ SITEURL }}{% block og_url %}{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{{ SITENAME }} - {{ SITESUBTITLE|default('Blog de Dados e Tecnologia') }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Blog pessoal de Jordan Arruda sobre análise de dados, Python e tecnologia.{% endblock %}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ SITEURL }}{% block twitter_url %}{% endblock %}">
+    <meta property="twitter:title" content="{% block twitter_title %}{{ SITENAME }}{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}Blog pessoal de Jordan Arruda sobre dados e tecnologia{% endblock %}">
+    <meta property="twitter:creator" content="@jordandearruda">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
+    <title>{% block title %}{{ SITENAME }} - {{ SITESUBTITLE|default('Blog de Dados') }}{% endblock %}</title>
+    
+    <!-- Preconnect to external domains for better performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     
     <!-- CSS -->
     <link rel="stylesheet" href="/theme/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     
+    <!-- RSS Feed -->
     {% if FEED_ALL_ATOM %}
-    <link href="{{ SITEURL }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Atom Feed">
+    <link href="{{ SITEURL }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} - Feed Atom">
     {% endif %}
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ SITEURL }}{% block canonical %}{% endblock %}">
 </head>
 <body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-to-main">Pular para o conteúdo principal</a>
+    
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Menu principal">
         <div class="navbar-container">
             <div class="navbar-brand">
-                <a href="/" class="brand">
-                    <i class="fas fa-chart-line"></i>
+                <a href="/" class="brand" aria-label="Página inicial - Jordan Arruda">
+                    <i class="fas fa-chart-line" aria-hidden="true"></i>
                     <span>{{ SITENAME }}</span>
                 </a>
             </div>
             
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="navbarMenu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -43,51 +80,62 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="main-container">
+    <main class="main-container" id="main-content" role="main">
         {% block content %}{% endblock %}
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>{{ SITENAME }}</h3>
-                    <p>Explorando dados e compartilhando insights para todos</p>
+                    <p>{% if SITESUBTITLE %}{{ SITESUBTITLE }}{% else %}Explorando dados e compartilhando conhecimento{% endif %}</p>
+                    <p class="footer-copyright">&copy; {{ COPYRIGHT_YEAR|default('2025') }} {{ AUTHOR }}. Todos os direitos reservados.</p>
                 </div>
                 
                 <div class="footer-section">
-                    <h4>Links</h4>
+                    <h4>Navegação</h4>
                     <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/blog.html">Blog</a></li>
-                        <li><a href="/sobre/">Sobre</a></li>
+                        <li><a href="/" rel="noopener">Home</a></li>
+                        <li><a href="/blog.html" rel="noopener">Blog</a></li>
+                        <li><a href="/sobre/" rel="noopener">Sobre</a></li>
+                        {% if FEED_ALL_ATOM %}
+                        <li><a href="{{ SITEURL }}/{{ FEED_ALL_ATOM }}" rel="noopener">RSS Feed</a></li>
+                        {% endif %}
                     </ul>
                 </div>
                 
                 <div class="footer-section">
-                    <h4>Siga</h4>
+                    <h4>Redes Sociais</h4>
                     <div class="social-links">
-                        <a href="https://github.com/Juerda" target="_blank" rel="noopener noreferrer" title="GitHub">
-                            <i class="fab fa-github"></i>
+                        <a href="https://github.com/Juerda" target="_blank" rel="noopener noreferrer" title="GitHub - Jordan Arruda" aria-label="Visite meu perfil no GitHub">
+                            <i class="fab fa-github" aria-hidden="true"></i>
                         </a>
-                        <a href="https://www.linkedin.com/in/jordanarruda/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-                            <i class="fab fa-linkedin"></i>
+                        <a href="https://www.linkedin.com/in/jordanarruda/" target="_blank" rel="noopener noreferrer" title="LinkedIn - Jordan Arruda" aria-label="Conecte-se comigo no LinkedIn">
+                            <i class="fab fa-linkedin" aria-hidden="true"></i>
                         </a>
-                        <a href="https://twitter.com/jordandearruda" target="_blank" rel="noopener noreferrer" title="Twitter">
-                            <i class="fab fa-twitter"></i>
+                        <a href="https://twitter.com/jordandearruda" target="_blank" rel="noopener noreferrer" title="Twitter - @jordandearruda" aria-label="Siga-me no Twitter">
+                            <i class="fab fa-twitter" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p></p>
+                <p>Feito com <span style="color: #e25555;" aria-label="amor">❤️</span> usando <a href="https://getpelican.com/" target="_blank" rel="noopener noreferrer">Pelican</a> e <a href="https://www.python.org/" target="_blank" rel="noopener noreferrer">Python</a></p>
             </div>
         </div>
     </footer>
 
+    <!-- Scripts (defer for better performance) -->
     <script src="/theme/js/main.js" defer></script>
     <script src="/theme/js/pie-chart.js" defer></script>
+    
+    <!-- Theme toggle button -->
+    <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema claro/escuro" title="Alternar tema">
+        <i class="fas fa-sun" aria-hidden="true"></i>
+        <i class="fas fa-moon" aria-hidden="true"></i>
+    </button>
 </body>
 </html>
