@@ -1,7 +1,7 @@
 Title: Dashboard Financeiro
 Date: 2025-12-16
 Slug: dashboard
-Summary: Análise inteligente de extratos bancários OFX
+Summary: Gerencie suas finanças pessoais - Adicione, edite e importe transações OFX
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 
@@ -12,79 +12,87 @@ Summary: Análise inteligente de extratos bancários OFX
         }
         
         .dashboard-container {
-            max-width: 1400px;
+            max-width: 100%;
+            width: 100%;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1rem;
+            overflow-x: hidden;
         }
         
         .dashboard-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
         
         .dashboard-header h1 {
-            font-size: 2.5rem;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
             color: var(--primary-blue);
             margin-bottom: 0.5rem;
         }
         
         .dashboard-header p {
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
             color: var(--text-secondary);
         }
         
-        .upload-section {
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            padding: 2rem;
+        .actions-bar {
+            display: flex;
+            gap: 1rem;
             margin-bottom: 2rem;
-            text-align: center;
-            border: 2px dashed var(--border-color);
+            flex-wrap: wrap;
+            justify-content: center;
         }
         
-        .upload-section.dragover {
-            border-color: var(--primary-blue);
-            background: rgba(0, 102, 204, 0.05);
-        }
-        
-        .file-input-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .file-input-wrapper input[type="file"] {
-            display: none;
-        }
-        
-        .file-input-label {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: var(--primary-blue);
-            color: white;
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s;
+            font-size: 0.95rem;
         }
         
-        .file-input-label:hover {
+        .btn-primary {
+            background: var(--primary-blue);
+            color: white;
+        }
+        
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+        
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+        
+        .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
         
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
             margin-bottom: 2rem;
+            width: 100%;
         }
         
         .metric-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 1.5rem;
+            padding: 1.25rem;
             border-radius: 12px;
             color: white;
             text-align: center;
+            min-width: 0;
         }
         
         .metric-card.income {
@@ -106,15 +114,14 @@ Summary: Análise inteligente de extratos bancários OFX
         }
         
         .metric-value {
-            font-size: 2rem;
+            font-size: clamp(1.3rem, 3vw, 2rem);
             font-weight: bold;
+            word-break: break-word;
         }
         
-        .charts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 2rem;
+        .charts-section {
             margin-bottom: 2rem;
+            width: 100%;
         }
         
         .chart-card {
@@ -122,12 +129,20 @@ Summary: Análise inteligente de extratos bancários OFX
             padding: 1.5rem;
             border-radius: 12px;
             border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+            width: 100%;
         }
         
         .chart-card h3 {
             margin-top: 0;
             margin-bottom: 1rem;
             color: var(--text-primary);
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+        }
+        
+        .chart-card canvas {
+            max-width: 100%;
+            height: auto !important;
         }
         
         .transactions-section {
@@ -135,18 +150,24 @@ Summary: Análise inteligente de extratos bancários OFX
             padding: 1.5rem;
             border-radius: 12px;
             border: 1px solid var(--border-color);
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .transactions-section h3 {
+            margin-top: 0;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
         }
         
         .filters {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
             margin-bottom: 1.5rem;
-            flex-wrap: wrap;
         }
         
         .filter-group {
-            flex: 1;
-            min-width: 200px;
+            min-width: 0;
         }
         
         .filter-group label {
@@ -154,6 +175,7 @@ Summary: Análise inteligente de extratos bancários OFX
             margin-bottom: 0.5rem;
             font-weight: 600;
             color: var(--text-primary);
+            font-size: 0.9rem;
         }
         
         .filter-group select,
@@ -164,31 +186,40 @@ Summary: Análise inteligente de extratos bancários OFX
             border-radius: 6px;
             background: var(--bg-primary);
             color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+        
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         .transactions-table {
             width: 100%;
             border-collapse: collapse;
-            overflow-x: auto;
-            display: block;
+            min-width: 600px;
         }
         
         .transactions-table thead {
             background: var(--bg-primary);
             position: sticky;
             top: 0;
+            z-index: 10;
         }
         
         .transactions-table th,
         .transactions-table td {
-            padding: 1rem;
+            padding: 0.75rem;
             text-align: left;
             border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
         }
         
         .transactions-table th {
             font-weight: 600;
             color: var(--text-primary);
+            white-space: nowrap;
         }
         
         .transactions-table tbody tr:hover {
@@ -209,9 +240,125 @@ Summary: Análise inteligente de extratos bancários OFX
             display: inline-block;
             padding: 0.25rem 0.75rem;
             border-radius: 12px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             background: var(--primary-blue);
             color: white;
+            white-space: nowrap;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-sm {
+            padding: 0.25rem 0.75rem;
+            font-size: 0.8rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-edit {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .btn-delete {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .btn-sm:hover {
+            opacity: 0.8;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: var(--bg-primary);
+            margin: 1rem;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+        }
+        
+        .close-modal {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+            line-height: 1;
+        }
+        
+        .close-modal:hover {
+            color: var(--text-primary);
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
         }
         
         .loading {
@@ -242,157 +389,104 @@ Summary: Análise inteligente de extratos bancários OFX
             margin-bottom: 1rem;
         }
         
-        .export-btn {
-            padding: 0.75rem 1.5rem;
-            background: var(--primary-blue);
-            color: white;
-            border: none;
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
             border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 1rem;
+            margin-bottom: 1rem;
         }
         
-        .export-btn:hover {
-            opacity: 0.9;
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-secondary);
         }
         
-        /* Responsividade Mobile */
-        @media (max-width: 768px) {
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 1200px) {
             .dashboard-container {
                 padding: 1rem;
             }
             
-            .dashboard-header h1 {
-                font-size: 1.8rem;
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 0.5rem;
             }
             
-            .dashboard-header p {
-                font-size: 0.95rem;
+            .actions-bar {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
             }
             
             .metrics-grid {
                 grid-template-columns: 1fr 1fr;
-                gap: 1rem;
+                gap: 0.75rem;
             }
             
             .metric-card {
                 padding: 1rem;
             }
             
-            .metric-value {
-                font-size: 1.5rem;
-            }
-            
-            .charts-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            
-            .chart-card {
-                padding: 1rem;
-            }
-            
             .filters {
-                flex-direction: column;
-            }
-            
-            .filter-group {
-                min-width: 100%;
-            }
-            
-            .transactions-table {
-                font-size: 0.8rem;
+                grid-template-columns: 1fr;
             }
             
             .transactions-table th,
             .transactions-table td {
-                padding: 0.5rem 0.3rem;
+                padding: 0.5rem 0.25rem;
+                font-size: 0.8rem;
             }
             
-            .upload-section {
+            .modal-content {
                 padding: 1.5rem 1rem;
             }
-            
-            .file-input-label {
-                padding: 0.75rem 1.5rem;
-                font-size: 0.9rem;
-            }
         }
         
-        /* Responsividade Tablet */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .dashboard-container {
-                padding: 1.5rem;
-            }
-            
-            .metrics-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .charts-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* Mobile muito pequeno */
         @media (max-width: 480px) {
             .metrics-grid {
                 grid-template-columns: 1fr;
             }
             
-            .dashboard-header h1 {
-                font-size: 1.5rem;
+            .action-buttons {
+                flex-direction: column;
             }
             
-            .metric-value {
-                font-size: 1.3rem;
-            }
-            
-            .transactions-table th:nth-child(3),
-            .transactions-table td:nth-child(3) {
-                display: none;
-            }
-        }
-        
-        /* Landscape mobile */
-        @media (max-height: 500px) and (orientation: landscape) {
-            .dashboard-header {
-                margin-bottom: 1.5rem;
-            }
-            
-            .upload-section {
-                padding: 1rem;
+            .btn-sm {
+                width: 100%;
             }
         }
     </style>
     
     <div class="dashboard-container">
         <div class="dashboard-header">
-            <h1>💰 Dashboard Financeiro</h1>
-            <p>Análise inteligente de extratos bancários OFX</p>
+            <h1>💰 Dashboard Financeiro Pessoal</h1>
+            <p>Gerencie suas finanças - Adicione, edite e importe transações</p>
         </div>
         
-        <div class="upload-section" id="uploadSection">
-            <h3>📁 Carregar Extrato Bancário</h3>
-            <p>Arraste o arquivo OFX aqui ou clique para selecionar</p>
-            <div class="file-input-wrapper">
-                <input type="file" id="ofxFile" accept=".ofx,.OFX" />
-                <label for="ofxFile" class="file-input-label">Escolher Arquivo OFX</label>
-            </div>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
-                Formato suportado: OFX (Open Financial Exchange)
-            </p>
+        <div class="actions-bar">
+            <button class="btn btn-success" onclick="openAddModal()">➕ Nova Transação</button>
+            <button class="btn btn-primary" onclick="openImportModal()">📁 Importar OFX</button>
+            <button class="btn btn-secondary" onclick="exportToCSV()">📥 Exportar CSV</button>
+            <button class="btn btn-danger" onclick="clearAllData()">🗑️ Limpar Tudo</button>
         </div>
         
-        <div id="loadingSection" style="display: none;" class="loading">
-            <div class="loading-spinner"></div>
-            <p>Processando extrato bancário...</p>
-        </div>
+        <div id="messageSection"></div>
         
-        <div id="errorSection" style="display: none;" class="error-message"></div>
-        
-        <div id="dashboardContent" style="display: none;">
+        <div id="dashboardContent">
             <div class="metrics-grid">
                 <div class="metric-card income">
                     <div class="metric-label">💰 Receitas</div>
@@ -412,7 +506,7 @@ Summary: Análise inteligente de extratos bancários OFX
                 </div>
             </div>
             
-            <div class="charts-grid">
+            <div class="charts-section">
                 <div class="chart-card">
                     <h3>📊 Despesas por Categoria</h3>
                     <canvas id="categoryChart"></canvas>
@@ -429,13 +523,13 @@ Summary: Análise inteligente de extratos bancários OFX
                 <div class="filters">
                     <div class="filter-group">
                         <label>Categoria</label>
-                        <select id="categoryFilter">
+                        <select id="categoryFilter" onchange="applyFilters()">
                             <option value="">Todas</option>
                         </select>
                     </div>
                     <div class="filter-group">
                         <label>Tipo</label>
-                        <select id="typeFilter">
+                        <select id="typeFilter" onchange="applyFilters()">
                             <option value="">Todas</option>
                             <option value="income">Receitas</option>
                             <option value="expense">Despesas</option>
@@ -443,11 +537,11 @@ Summary: Análise inteligente de extratos bancários OFX
                     </div>
                     <div class="filter-group">
                         <label>Buscar</label>
-                        <input type="text" id="searchFilter" placeholder="Buscar descrição..." />
+                        <input type="text" id="searchFilter" placeholder="Buscar descrição..." oninput="applyFilters()" />
                     </div>
                 </div>
                 
-                <div style="overflow-x: auto;">
+                <div class="table-container">
                     <table class="transactions-table">
                         <thead>
                             <tr>
@@ -455,13 +549,108 @@ Summary: Análise inteligente de extratos bancários OFX
                                 <th>Descrição</th>
                                 <th>Categoria</th>
                                 <th>Valor</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody id="transactionsBody"></tbody>
                     </table>
                 </div>
                 
-                <button class="export-btn" onclick="exportToCSV()">📥 Exportar CSV</button>
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <div class="empty-state-icon">📊</div>
+                    <h3>Nenhuma transação cadastrada</h3>
+                    <p>Comece adicionando uma transação manualmente ou importe um arquivo OFX</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Adicionar/Editar -->
+    <div id="transactionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Nova Transação</h2>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="transactionForm" onsubmit="saveTransaction(event)">
+                <input type="hidden" id="transactionId" />
+                
+                <div class="form-group">
+                    <label>Data *</label>
+                    <input type="date" id="transactionDate" required />
+                </div>
+                
+                <div class="form-group">
+                    <label>Descrição *</label>
+                    <input type="text" id="transactionDescription" required placeholder="Ex: Supermercado" />
+                </div>
+                
+                <div class="form-group">
+                    <label>Categoria *</label>
+                    <select id="transactionCategory" required>
+                        <option value="">Selecione...</option>
+                        <option value="Alimentação">Alimentação</option>
+                        <option value="Transporte">Transporte</option>
+                        <option value="Moradia">Moradia</option>
+                        <option value="Saúde">Saúde</option>
+                        <option value="Educação">Educação</option>
+                        <option value="Lazer">Lazer</option>
+                        <option value="Vestuário">Vestuário</option>
+                        <option value="Serviços">Serviços</option>
+                        <option value="Investimentos">Investimentos</option>
+                        <option value="Receitas">Receitas</option>
+                        <option value="Transferências">Transferências</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Valor (R$) *</label>
+                    <input type="number" id="transactionAmount" step="0.01" required placeholder="0.00" />
+                </div>
+                
+                <div class="form-group">
+                    <label>Tipo *</label>
+                    <select id="transactionType" required>
+                        <option value="expense">Despesa (-)</option>
+                        <option value="income">Receita (+)</option>
+                    </select>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="submit" class="btn btn-success" style="flex: 1;">Salvar</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()" style="flex: 1;">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal Importar OFX -->
+    <div id="importModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Importar Arquivo OFX</h2>
+                <button class="close-modal" onclick="closeImportModal()">&times;</button>
+            </div>
+            <div>
+                <p style="margin-bottom: 1rem; color: var(--text-secondary);">
+                    As transações do arquivo OFX serão <strong>adicionadas</strong> às existentes. 
+                    Transações duplicadas serão ignoradas.
+                </p>
+                
+                <div class="form-group">
+                    <input type="file" id="ofxFile" accept=".ofx,.OFX" style="width: 100%;" />
+                </div>
+                
+                <div id="importLoading" class="loading" style="display: none;">
+                    <div class="loading-spinner"></div>
+                    <p>Processando arquivo OFX...</p>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button class="btn btn-primary" onclick="processOFXFile()" style="flex: 1;">Importar</button>
+                    <button class="btn btn-secondary" onclick="closeImportModal()" style="flex: 1;">Cancelar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -477,7 +666,7 @@ let charts = {
     monthly: null
 };
 
-// Categorias brasileiras
+// Categorias
 const CATEGORIES = {
     'Alimentação': ['supermercado', 'restaurante', 'lanchonete', 'padaria', 'ifood', 'uber eats'],
     'Transporte': ['uber', '99', 'combustível', 'gasolina', 'estacionamento', 'taxi'],
@@ -493,72 +682,160 @@ const CATEGORIES = {
     'Outros': []
 };
 
-// Configurar upload
-document.getElementById('ofxFile').addEventListener('change', handleFileSelect);
+// LocalStorage
+function saveToLocalStorage() {
+    localStorage.setItem('financialTransactions', JSON.stringify(transactionsData));
+}
 
-const uploadSection = document.getElementById('uploadSection');
-uploadSection.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    uploadSection.classList.add('dragover');
-});
-
-uploadSection.addEventListener('dragleave', () => {
-    uploadSection.classList.remove('dragover');
-});
-
-uploadSection.addEventListener('drop', (e) => {
-    e.preventDefault();
-    uploadSection.classList.remove('dragover');
-    const file = e.dataTransfer.files[0];
-    if (file && file.name.toLowerCase().endsWith('.ofx')) {
-        processOFXFile(file);
-    }
-});
-
-function handleFileSelect(event) {
-    const file = event.target.files[0];
-    if (file) {
-        processOFXFile(file);
+function loadFromLocalStorage() {
+    const data = localStorage.getItem('financialTransactions');
+    if (data) {
+        transactionsData = JSON.parse(data);
+        transactionsData.forEach(t => {
+            t.date = new Date(t.date);
+        });
     }
 }
 
-function showLoading() {
-    document.getElementById('loadingSection').style.display = 'block';
-    document.getElementById('dashboardContent').style.display = 'none';
-    document.getElementById('errorSection').style.display = 'none';
+// Inicialização
+document.addEventListener('DOMContentLoaded', function() {
+    loadFromLocalStorage();
+    renderDashboard();
+});
+
+// Modais
+function openAddModal() {
+    document.getElementById('modalTitle').textContent = 'Nova Transação';
+    document.getElementById('transactionForm').reset();
+    document.getElementById('transactionId').value = '';
+    document.getElementById('transactionDate').valueAsDate = new Date();
+    document.getElementById('transactionModal').classList.add('active');
 }
 
-function showError(message) {
-    document.getElementById('errorSection').textContent = message;
-    document.getElementById('errorSection').style.display = 'block';
-    document.getElementById('loadingSection').style.display = 'none';
+function openEditModal(id) {
+    const transaction = transactionsData.find(t => t.id === id);
+    if (!transaction) return;
+    
+    document.getElementById('modalTitle').textContent = 'Editar Transação';
+    document.getElementById('transactionId').value = transaction.id;
+    document.getElementById('transactionDate').valueAsDate = transaction.date;
+    document.getElementById('transactionDescription').value = transaction.description;
+    document.getElementById('transactionCategory').value = transaction.category;
+    document.getElementById('transactionAmount').value = Math.abs(transaction.amount);
+    document.getElementById('transactionType').value = transaction.amount >= 0 ? 'income' : 'expense';
+    document.getElementById('transactionModal').classList.add('active');
 }
 
-function showDashboard() {
-    document.getElementById('dashboardContent').style.display = 'block';
-    document.getElementById('loadingSection').style.display = 'none';
+function closeModal() {
+    document.getElementById('transactionModal').classList.remove('active');
 }
 
-function processOFXFile(file) {
-    showLoading();
+function openImportModal() {
+    document.getElementById('importModal').classList.add('active');
+    document.getElementById('ofxFile').value = '';
+}
+
+function closeImportModal() {
+    document.getElementById('importModal').classList.remove('active');
+}
+
+// CRUD Transações
+function saveTransaction(event) {
+    event.preventDefault();
+    
+    const id = document.getElementById('transactionId').value;
+    const date = new Date(document.getElementById('transactionDate').value);
+    const description = document.getElementById('transactionDescription').value;
+    const category = document.getElementById('transactionCategory').value;
+    let amount = parseFloat(document.getElementById('transactionAmount').value);
+    const type = document.getElementById('transactionType').value;
+    
+    if (type === 'expense' && amount > 0) amount = -amount;
+    if (type === 'income' && amount < 0) amount = Math.abs(amount);
+    
+    if (id) {
+        const index = transactionsData.findIndex(t => t.id === id);
+        if (index !== -1) {
+            transactionsData[index] = {
+                ...transactionsData[index],
+                date,
+                description,
+                category,
+                amount
+            };
+            showMessage('Transação atualizada com sucesso!', 'success');
+        }
+    } else {
+        transactionsData.push({
+            id: Date.now().toString(),
+            date,
+            description,
+            category,
+            amount,
+            type: type === 'income' ? 'CREDIT' : 'DEBIT'
+        });
+        showMessage('Transação adicionada com sucesso!', 'success');
+    }
+    
+    saveToLocalStorage();
+    renderDashboard();
+    closeModal();
+}
+
+function deleteTransaction(id) {
+    if (!confirm('Tem certeza que deseja excluir esta transação?')) return;
+    
+    transactionsData = transactionsData.filter(t => t.id !== id);
+    saveToLocalStorage();
+    renderDashboard();
+    showMessage('Transação excluída com sucesso!', 'success');
+}
+
+function clearAllData() {
+    if (!confirm('Tem certeza que deseja limpar TODAS as transações? Esta ação não pode ser desfeita!')) return;
+    
+    transactionsData = [];
+    saveToLocalStorage();
+    renderDashboard();
+    showMessage('Todas as transações foram removidas!', 'success');
+}
+
+// Importar OFX
+function processOFXFile() {
+    const fileInput = document.getElementById('ofxFile');
+    const file = fileInput.files[0];
+    
+    if (!file) {
+        showMessage('Selecione um arquivo OFX', 'error');
+        return;
+    }
+    
+    document.getElementById('importLoading').style.display = 'block';
     
     const reader = new FileReader();
     reader.onload = function(e) {
         try {
             const ofxData = e.target.result;
-            const transactions = parseOFX(ofxData);
+            const newTransactions = parseOFX(ofxData);
             
-            if (transactions.length === 0) {
-                showError('Nenhuma transação encontrada no arquivo OFX');
-                return;
-            }
+            let added = 0;
+            newTransactions.forEach(newTrn => {
+                const exists = transactionsData.some(t => t.id === newTrn.id);
+                if (!exists) {
+                    transactionsData.push(newTrn);
+                    added++;
+                }
+            });
             
-            transactionsData = transactions;
-            categorizeTransactions();
+            saveToLocalStorage();
             renderDashboard();
-            showDashboard();
+            closeImportModal();
+            showMessage(`${added} transações importadas com sucesso!`, 'success');
+            
         } catch (error) {
-            showError('Erro ao processar arquivo OFX: ' + error.message);
+            showMessage('Erro ao processar arquivo OFX: ' + error.message, 'error');
+        } finally {
+            document.getElementById('importLoading').style.display = 'none';
         }
     };
     reader.readAsText(file);
@@ -568,14 +845,12 @@ function parseOFX(ofxText) {
     const transactions = [];
     
     try {
-        // Parser simples de OFX usando regex
         const stmttrnPattern = /<STMTTRN>([\s\S]*?)<\/STMTTRN>/g;
         const matches = ofxText.matchAll(stmttrnPattern);
         
         for (const match of matches) {
             const trnBlock = match[1];
             
-            // Extrair campos
             const dtposted = trnBlock.match(/<DTPOSTED>(\d+)/)?.[1];
             const trnamt = trnBlock.match(/<TRNAMT>([-\d.]+)/)?.[1];
             const fitid = trnBlock.match(/<FITID>([^<]+)/)?.[1];
@@ -585,65 +860,58 @@ function parseOFX(ofxText) {
             
             if (!dtposted || !trnamt) continue;
             
-            // Parsear data (formato YYYYMMDD)
             const year = parseInt(dtposted.substring(0, 4));
             const month = parseInt(dtposted.substring(4, 6)) - 1;
             const day = parseInt(dtposted.substring(6, 8));
             
-            // Descrição: priorizar MEMO, depois NAME
             let description = memo || name || 'Sem descrição';
-            description = description.trim();
+            description = description.trim().replace(/^["']|["']$/g, '');
             
-            // Limpar descrição (remover aspas extras)
-            description = description.replace(/^["']|["']$/g, '');
+            const amount = parseFloat(trnamt);
+            const category = autoCategorize(description, amount);
             
             transactions.push({
                 date: new Date(year, month, day),
                 description: description,
-                amount: parseFloat(trnamt),
+                amount: amount,
                 type: trntype || 'OTHER',
-                id: fitid || Date.now().toString(),
-                category: null
+                id: fitid || Date.now().toString() + Math.random(),
+                category: category
             });
-        }
-        
-        if (transactions.length === 0) {
-            throw new Error('Nenhuma transação encontrada no arquivo');
         }
         
         return transactions.sort((a, b) => b.date - a.date);
         
     } catch (error) {
         console.error('Erro ao processar OFX:', error);
-        throw new Error('Erro ao processar arquivo OFX: ' + error.message);
+        throw new Error('Erro ao processar arquivo OFX');
     }
 }
 
-function categorizeTransactions() {
-    transactionsData.forEach(transaction => {
-        const desc = transaction.description.toLowerCase();
-        
-        // Receitas
-        if (transaction.amount > 0) {
-            transaction.category = 'Receitas';
-            return;
+function autoCategorize(description, amount) {
+    const desc = description.toLowerCase();
+    
+    if (amount > 0) return 'Receitas';
+    
+    for (const [category, keywords] of Object.entries(CATEGORIES)) {
+        for (const keyword of keywords) {
+            if (desc.includes(keyword)) return category;
         }
-        
-        // Buscar categoria por palavras-chave
-        for (const [category, keywords] of Object.entries(CATEGORIES)) {
-            for (const keyword of keywords) {
-                if (desc.includes(keyword)) {
-                    transaction.category = category;
-                    return;
-                }
-            }
-        }
-        
-        transaction.category = 'Outros';
-    });
+    }
+    
+    return 'Outros';
 }
 
+// Renderização
 function renderDashboard() {
+    if (transactionsData.length === 0) {
+        document.getElementById('emptyState').style.display = 'block';
+        document.querySelector('.table-container').style.display = 'none';
+    } else {
+        document.getElementById('emptyState').style.display = 'none';
+        document.querySelector('.table-container').style.display = 'block';
+    }
+    
     renderMetrics();
     renderCharts();
     renderTransactionsTable();
@@ -693,6 +961,11 @@ function renderCategoryChart() {
         charts.category.destroy();
     }
     
+    if (sortedCategories.length === 0) {
+        ctx.parentElement.innerHTML = '<h3>📊 Despesas por Categoria</h3><p style="text-align: center; color: var(--text-secondary);">Nenhuma despesa cadastrada</p>';
+        return;
+    }
+    
     charts.category = new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -707,9 +980,16 @@ function renderCategoryChart() {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: true,
             plugins: {
                 legend: {
-                    position: 'right'
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 12,
+                        font: {
+                            size: 11
+                        }
+                    }
                 },
                 tooltip: {
                     callbacks: {
@@ -751,6 +1031,11 @@ function renderMonthlyChart() {
         charts.monthly.destroy();
     }
     
+    if (sortedMonths.length === 0) {
+        ctx.parentElement.innerHTML = '<h3>📈 Tendência Mensal</h3><p style="text-align: center; color: var(--text-secondary);">Nenhuma transação cadastrada</p>';
+        return;
+    }
+    
     charts.monthly = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -773,15 +1058,33 @@ function renderMonthlyChart() {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: true,
             scales: {
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        callback: value => formatCurrency(value)
+                        callback: value => formatCurrency(value),
+                        font: {
+                            size: 10
+                        }
+                    }
+                },
+                x: {
+                    ticks: {
+                        font: {
+                            size: 10
+                        }
                     }
                 }
             },
             plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 11
+                        }
+                    }
+                },
                 tooltip: {
                     callbacks: {
                         label: context => {
@@ -799,6 +1102,11 @@ function renderTransactionsTable(filteredData = null) {
     const tbody = document.getElementById('transactionsBody');
     tbody.innerHTML = '';
     
+    if (data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 2rem; color: var(--text-secondary);">Nenhuma transação encontrada</td></tr>';
+        return;
+    }
+    
     data.forEach(t => {
         const row = tbody.insertRow();
         row.innerHTML = `
@@ -808,12 +1116,17 @@ function renderTransactionsTable(filteredData = null) {
             <td class="${t.amount >= 0 ? 'amount-positive' : 'amount-negative'}">
                 ${formatCurrency(t.amount)}
             </td>
+            <td>
+                <div class="action-buttons">
+                    <button class="btn-sm btn-edit" onclick="openEditModal('${t.id}')">✏️</button>
+                    <button class="btn-sm btn-delete" onclick="deleteTransaction('${t.id}')">🗑️</button>
+                </div>
+            </td>
         `;
     });
 }
 
 function setupFilters() {
-    // Popular filtro de categorias
     const categories = [...new Set(transactionsData.map(t => t.category))].sort();
     const categoryFilter = document.getElementById('categoryFilter');
     categoryFilter.innerHTML = '<option value="">Todas</option>';
@@ -823,11 +1136,6 @@ function setupFilters() {
         option.textContent = cat;
         categoryFilter.appendChild(option);
     });
-    
-    // Event listeners para filtros
-    document.getElementById('categoryFilter').addEventListener('change', applyFilters);
-    document.getElementById('typeFilter').addEventListener('change', applyFilters);
-    document.getElementById('searchFilter').addEventListener('input', applyFilters);
 }
 
 function applyFilters() {
@@ -857,6 +1165,11 @@ function applyFilters() {
 }
 
 function exportToCSV() {
+    if (transactionsData.length === 0) {
+        showMessage('Nenhuma transação para exportar', 'error');
+        return;
+    }
+    
     const headers = ['Data', 'Descrição', 'Categoria', 'Valor'];
     const rows = transactionsData.map(t => [
         t.date.toLocaleDateString('pt-BR'),
@@ -873,8 +1186,19 @@ function exportToCSV() {
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'transacoes_' + new Date().toISOString().split('T')[0] + '.csv';
+    link.download = 'financas_' + new Date().toISOString().split('T')[0] + '.csv';
     link.click();
+    
+    showMessage('Arquivo CSV exportado com sucesso!', 'success');
+}
+
+function showMessage(message, type) {
+    const messageSection = document.getElementById('messageSection');
+    messageSection.innerHTML = `<div class="${type}-message">${message}</div>`;
+    
+    setTimeout(() => {
+        messageSection.innerHTML = '';
+    }, 5000);
 }
 
 function formatCurrency(value) {
