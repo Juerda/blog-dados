@@ -330,9 +330,9 @@ def index():
         ]
     }), 200
 
-# Criar tabelas automaticamente
-with app.app_context():
-    db.create_all()
+# Criar tabelas automaticamente (comentado pois já criamos manualmente no Supabase)
+# with app.app_context():
+#     db.create_all()
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
