@@ -408,6 +408,89 @@ Summary: Gerencie suas finanças pessoais - Adicione, edite e importe transaçõ
             margin-bottom: 1rem;
         }
         
+        /* Auth Screen */
+        #authScreen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem;
+        }
+        
+        .auth-container {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .auth-header h1 {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+        
+        .auth-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .auth-toggle {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .auth-toggle button {
+            background: none;
+            border: none;
+            color: var(--primary-blue);
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .auth-toggle button:hover {
+            color: #0056b3;
+        }
+        
+        #dashboardScreen {
+            display: none;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+        }
+        
+        .user-info span {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .user-info button {
+            margin-left: auto;
+        }
+        
         /* Responsividade */
         @media (max-width: 1200px) {
             .dashboard-container {
@@ -471,10 +554,75 @@ Summary: Gerencie suas finanças pessoais - Adicione, edite e importe transaçõ
         }
     </style>
     
+    <!-- Tela de Autenticação -->
+    <div id="authScreen">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h1>💰 Dashboard Financeiro</h1>
+                <p>Gerencie suas finanças pessoais</p>
+            </div>
+            
+            <!-- Formulário de Login -->
+            <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" required placeholder="seu@email.com" />
+                </div>
+                
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••" />
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Entrar</button>
+                
+                <div class="auth-toggle">
+                    Não tem conta? <button type="button" onclick="switchToRegister()">Cadastre-se</button>
+                </div>
+            </form>
+            
+            <!-- Formulário de Cadastro -->
+            <form id="registerForm" class="auth-form" style="display: none;" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" id="registerName" required placeholder="Seu nome" />
+                </div>
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="registerEmail" required placeholder="seu@email.com" />
+                </div>
+                
+                <div class="form-group">
+                    <label>Senha (mín. 6 caracteres)</label>
+                    <input type="password" id="registerPassword" required placeholder="••••••" minlength="6" />
+                </div>
+                
+                <div class="form-group">
+                    <label>Confirmar Senha</label>
+                    <input type="password" id="registerConfirmPassword" required placeholder="••••••" minlength="6" />
+                </div>
+                
+                <button type="submit" class="btn btn-success" style="width: 100%;">Criar Conta</button>
+                
+                <div class="auth-toggle">
+                    Já tem conta? <button type="button" onclick="switchToLogin()">Fazer login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Tela do Dashboard -->
+    <div id="dashboardScreen">
     <div class="dashboard-container">
         <div class="dashboard-header">
             <h1>💰 Dashboard Financeiro Pessoal</h1>
             <p>Gerencie suas finanças - Adicione, edite e importe transações</p>
+        </div>
+        
+        <div class="user-info">
+            <span>👤 <span id="userNameDisplay"></span></span>
+            <button class="btn btn-danger btn-sm" onclick="logout()">🚪 Sair</button>
         </div>
         
         <div class="actions-bar">
@@ -563,6 +711,7 @@ Summary: Gerencie suas finanças pessoais - Adicione, edite e importe transaçõ
                 </div>
             </div>
         </div>
+    </div>
     </div>
     
     <!-- Modal Adicionar/Editar -->
@@ -661,6 +810,7 @@ Summary: Gerencie suas finanças pessoais - Adicione, edite e importe transaçõ
 <script>
 // Variáveis globais
 let transactionsData = [];
+let currentUser = null;
 let charts = {
     category: null,
     monthly: null
@@ -684,23 +834,166 @@ const CATEGORIES = {
 
 // LocalStorage
 function saveToLocalStorage() {
-    localStorage.setItem('financialTransactions', JSON.stringify(transactionsData));
+    if (!currentUser) return;
+    const userKey = `financialTransactions_${currentUser.email}`;
+    localStorage.setItem(userKey, JSON.stringify(transactionsData));
 }
 
 function loadFromLocalStorage() {
-    const data = localStorage.getItem('financialTransactions');
+    if (!currentUser) return;
+    const userKey = `financialTransactions_${currentUser.email}`;
+    const data = localStorage.getItem(userKey);
     if (data) {
         transactionsData = JSON.parse(data);
         transactionsData.forEach(t => {
             t.date = new Date(t.date);
         });
+    } else {
+        transactionsData = [];
+    }
+}
+
+// Autenticação
+function getUsers() {
+    const users = localStorage.getItem('financialUsers');
+    return users ? JSON.parse(users) : [];
+}
+
+function saveUsers(users) {
+    localStorage.setItem('financialUsers', JSON.stringify(users));
+}
+
+function hashPassword(password) {
+    // Simples hash para demonstração - em produção use bcrypt ou similar
+    let hash = 0;
+    for (let i = 0; i < password.length; i++) {
+        const char = password.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash;
+    }
+    return hash.toString();
+}
+
+function register(name, email, password) {
+    const users = getUsers();
+    
+    if (users.find(u => u.email === email)) {
+        showMessage('Email já cadastrado!', 'error');
+        return false;
+    }
+    
+    if (password.length < 6) {
+        showMessage('Senha deve ter no mínimo 6 caracteres', 'error');
+        return false;
+    }
+    
+    const newUser = {
+        name,
+        email,
+        password: hashPassword(password),
+        createdAt: new Date().toISOString()
+    };
+    
+    users.push(newUser);
+    saveUsers(users);
+    showMessage('Conta criada com sucesso! Faça login.', 'success');
+    return true;
+}
+
+function login(email, password) {
+    const users = getUsers();
+    const user = users.find(u => u.email === email && u.password === hashPassword(password));
+    
+    if (!user) {
+        showMessage('Email ou senha incorretos', 'error');
+        return false;
+    }
+    
+    currentUser = { name: user.name, email: user.email };
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    showMessage(`Bem-vindo(a), ${user.name}!`, 'success');
+    return true;
+}
+
+function logout() {
+    if (confirm('Deseja realmente sair?')) {
+        currentUser = null;
+        transactionsData = [];
+        localStorage.removeItem('currentUser');
+        showAuthScreen();
+        showMessage('Logout realizado com sucesso', 'success');
+    }
+}
+
+function checkAuth() {
+    const savedUser = localStorage.getItem('currentUser');
+    if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        return true;
+    }
+    return false;
+}
+
+function showAuthScreen() {
+    document.getElementById('authScreen').style.display = 'flex';
+    document.getElementById('dashboardScreen').style.display = 'none';
+}
+
+function showDashboardScreen() {
+    document.getElementById('authScreen').style.display = 'none';
+    document.getElementById('dashboardScreen').style.display = 'block';
+    document.getElementById('userNameDisplay').textContent = currentUser.name;
+}
+
+function switchToRegister() {
+    document.getElementById('loginForm').style.display = 'none';
+    document.getElementById('registerForm').style.display = 'block';
+}
+
+function switchToLogin() {
+    document.getElementById('registerForm').style.display = 'none';
+    document.getElementById('loginForm').style.display = 'block';
+}
+
+function handleLogin(event) {
+    event.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    
+    if (login(email, password)) {
+        loadFromLocalStorage();
+        showDashboardScreen();
+        renderDashboard();
+    }
+}
+
+function handleRegister(event) {
+    event.preventDefault();
+    const name = document.getElementById('registerName').value;
+    const email = document.getElementById('registerEmail').value;
+    const password = document.getElementById('registerPassword').value;
+    const confirmPassword = document.getElementById('registerConfirmPassword').value;
+    
+    if (password !== confirmPassword) {
+        showMessage('As senhas não coincidem', 'error');
+        return;
+    }
+    
+    if (register(name, email, password)) {
+        document.getElementById('registerForm').reset();
+        switchToLogin();
     }
 }
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', function() {
-    loadFromLocalStorage();
-    renderDashboard();
+    if (checkAuth()) {
+        loadFromLocalStorage();
+        showDashboardScreen();
+        renderDashboard();
+    } else {
+        showAuthScreen();
+    }
 });
 
 // Modais
