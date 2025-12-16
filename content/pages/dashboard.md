@@ -368,7 +368,6 @@ Summary: Análise inteligente de extratos bancários OFX
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/xml-js@1.6.11/dist/xml-js.min.js"></script>
 
 <script>
 // Variáveis globais
@@ -468,55 +467,56 @@ function processOFXFile(file) {
 function parseOFX(ofxText) {
     const transactions = [];
     
-    // Remover header SGML
-    const xmlStart = ofxText.indexOf('<OFX>');
-    if (xmlStart === -1) {
-        throw new Error('Arquivo OFX inválido');
-    }
-    
-    const xmlData = ofxText.substring(xmlStart);
-    
-    // Converter XML para JSON
-    const result = xmljs.xml2js(xmlData, { compact: true, spaces: 4 });
-    
-    // Navegar na estrutura OFX
-    const bankmsgsrs = result.OFX.BANKMSGSRSV1 || result.OFX.CREDITCARDMSGSRSV1;
-    if (!bankmsgsrs) {
-        throw new Error('Estrutura OFX não reconhecida');
-    }
-    
-    const stmttrnrs = bankmsgsrs.STMTTRNRS || bankmsgsrs.CCSTMTTRNRS;
-    if (!stmttrnrs) {
-        throw new Error('Nenhuma transação encontrada');
-    }
-    
-    const stmtrs = stmttrnrs.STMTRS || stmttrnrs.CCSTMTRS;
-    const banktranlist = stmtrs.BANKTRANLIST || stmtrs.BANKTRANLIST;
-    
-    if (!banktranlist || !banktranlist.STMTTRN) {
-        throw new Error('Nenhuma transação encontrada');
-    }
-    
-    const stmttrns = Array.isArray(banktranlist.STMTTRN) ? 
-        banktranlist.STMTTRN : [banktranlist.STMTTRN];
-    
-    stmttrns.forEach(trn => {
-        const date = trn.DTPOSTED._text.substring(0, 8);
-        const year = date.substring(0, 4);
-        const month = date.substring(4, 6);
-        const day = date.substring(6, 8);
+    try {
+        // Parser simples de OFX usando regex
+        const stmttrnPattern = /<STMTTRN>([\s\S]*?)<\/STMTTRN>/g;
+        const matches = ofxText.matchAll(stmttrnPattern);
         
-        transactions.push({
-            date: new Date(year, month - 1, day),
-            description: (trn.MEMO?._text || trn.NAME?._text || 'Sem descrição').trim(),
-            amount: parseFloat(trn.TRNAMT._text),
-            type: trn.TRNTYPE._text,
-            id: trn.FITID._text,
-            category: null
-        });
-    });
-    
-    return transactions.sort((a, b) => b.date - a.date);
+        for (const match of matches) {
+            const trnBlock = match[1];
+            
+            // Extrair campos
+            const dtposted = trnBlock.match(/<DTPOSTED>(\d+)/)?.[1];
+            const trnamt = trnBlock.match(/<TRNAMT>([-\d.]+)/)?.[1];
+            const fitid = trnBlock.match(/<FITID>([^<]+)/)?.[1];
+            const memo = trnBlock.match(/<MEMO>([^<]*)/)?.[1] || '';
+            const name = trnBlock.match(/<NAME>([^<]*)/)?.[1] || '';
+            const trntype = trnBlock.match(/<TRNTYPE>([^<]+)/)?.[1];
+            
+            if (!dtposted || !trnamt) continue;
+            
+            // Parsear data (formato YYYYMMDD)
+            const year = parseInt(dtposted.substring(0, 4));
+            const month = parseInt(dtposted.substring(4, 6)) - 1;
+            const day = parseInt(dtposted.substring(6, 8));
+            
+            // Descrição: priorizar MEMO, depois NAME
+            let description = memo || name || 'Sem descrição';
+            description = description.trim();
+            
+            // Limpar descrição (remover aspas extras)
+            description = description.replace(/^["']|["']$/g, '');
+            
+            transactions.push({
+                date: new Date(year, month, day),
+                description: description,
+                amount: parseFloat(trnamt),
+                type: trntype || 'OTHER',
+                id: fitid || Date.now().toString(),
+                category: null
+            });
+        }
+        
+        if (transactions.length === 0) {
+            throw new Error('Nenhuma transação encontrada no arquivo');
+        }
+        
+        return transactions.sort((a, b) => b.date - a.date);
+        
+    } catch (error) {
+        console.error('Erro ao processar OFX:', error);
+        throw new Error('Erro ao processar arquivo OFX: ' + error.message);
+    }
 }
 
 function categorizeTransactions() {
