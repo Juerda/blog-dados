@@ -808,6 +808,10 @@ Summary: Gerencie suas finanças pessoais - Adicione, edite e importe transaçõ
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
 <script>
+// Configuração da API
+const API_URL = 'http://localhost:5000/api'; // Trocar para URL de produção
+let authToken = null;
+
 // Variáveis globais
 let transactionsData = [];
 let currentUser = null;
@@ -833,105 +837,126 @@ const CATEGORIES = {
 };
 
 // LocalStorage
-function saveToLocalStorage() {
-    if (!currentUser) return;
-    const userKey = `financialTransactions_${currentUser.email}`;
-    localStorage.setItem(userKey, JSON.stringify(transactionsData));
+function saveAuthToken(token) {
+    authToken = token;
+    localStorage.setItem('authToken', token);
 }
 
-function loadFromLocalStorage() {
-    if (!currentUser) return;
-    const userKey = `financialTransactions_${currentUser.email}`;
-    const data = localStorage.getItem(userKey);
-    if (data) {
-        transactionsData = JSON.parse(data);
-        transactionsData.forEach(t => {
-            t.date = new Date(t.date);
-        });
-    } else {
+function loadAuthToken() {
+    authToken = localStorage.getItem('authToken');
+    return authToken;
+}
+
+function clearAuthToken() {
+    authToken = null;
+    localStorage.removeItem('authToken');
+}
+
+// API Helper
+async function apiRequest(endpoint, options = {}) {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        },
+        ...options
+    };
+    
+    if (authToken && !options.skipAuth) {
+        config.headers['Authorization'] = `Bearer ${authToken}`;
+    }
+    
+    try {
+        const response = await fetch(`${API_URL}${endpoint}`, config);
+        const data = await response.json();
+        
+        if (!response.ok) {
+            if (response.status === 401) {
+                clearAuthToken();
+                showAuthScreen();
+                showMessage('Sessão expirada. Faça login novamente.', 'error');
+            }
+            throw new Error(data.error || 'Erro na requisição');
+        }
+        
+        return data;
+    } catch (error) {
+        console.error('API Error:', error);
+        throw error;
+    }
+}
+
+// Carregar transações do servidor
+async function loadFromServer() {
+    try {
+        const data = await apiRequest('/transactions');
+        transactionsData = data.map(t => ({
+            ...t,
+            date: new Date(t.date)
+        }));
+    } catch (error) {
+        showMessage('Erro ao carregar transações: ' + error.message, 'error');
         transactionsData = [];
     }
 }
 
 // Autenticação
-function getUsers() {
-    const users = localStorage.getItem('financialUsers');
-    return users ? JSON.parse(users) : [];
-}
-
-function saveUsers(users) {
-    localStorage.setItem('financialUsers', JSON.stringify(users));
-}
-
-function hashPassword(password) {
-    // Simples hash para demonstração - em produção use bcrypt ou similar
-    let hash = 0;
-    for (let i = 0; i < password.length; i++) {
-        const char = password.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash;
-    }
-    return hash.toString();
-}
-
-function register(name, email, password) {
-    const users = getUsers();
-    
-    if (users.find(u => u.email === email)) {
-        showMessage('Email já cadastrado!', 'error');
+async function register(name, email, password) {
+    try {
+        const data = await apiRequest('/register', {
+            method: 'POST',
+            body: JSON.stringify({ name, email, password }),
+            skipAuth: true
+        });
+        
+        showMessage(data.message, 'success');
+        return true;
+    } catch (error) {
+        showMessage(error.message, 'error');
         return false;
     }
-    
-    if (password.length < 6) {
-        showMessage('Senha deve ter no mínimo 6 caracteres', 'error');
-        return false;
-    }
-    
-    const newUser = {
-        name,
-        email,
-        password: hashPassword(password),
-        createdAt: new Date().toISOString()
-    };
-    
-    users.push(newUser);
-    saveUsers(users);
-    showMessage('Conta criada com sucesso! Faça login.', 'success');
-    return true;
 }
 
-function login(email, password) {
-    const users = getUsers();
-    const user = users.find(u => u.email === email && u.password === hashPassword(password));
-    
-    if (!user) {
-        showMessage('Email ou senha incorretos', 'error');
+async function login(email, password) {
+    try {
+        const data = await apiRequest('/login', {
+            method: 'POST',
+            body: JSON.stringify({ email, password }),
+            skipAuth: true
+        });
+        
+        saveAuthToken(data.token);
+        currentUser = data.user;
+        showMessage(`Bem-vindo(a), ${data.user.name}!`, 'success');
+        return true;
+    } catch (error) {
+        showMessage(error.message, 'error');
         return false;
     }
-    
-    currentUser = { name: user.name, email: user.email };
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-    showMessage(`Bem-vindo(a), ${user.name}!`, 'success');
-    return true;
 }
 
-function logout() {
+async function logout() {
     if (confirm('Deseja realmente sair?')) {
+        clearAuthToken();
         currentUser = null;
         transactionsData = [];
-        localStorage.removeItem('currentUser');
         showAuthScreen();
         showMessage('Logout realizado com sucesso', 'success');
     }
 }
 
-function checkAuth() {
-    const savedUser = localStorage.getItem('currentUser');
-    if (savedUser) {
-        currentUser = JSON.parse(savedUser);
+async function checkAuth() {
+    const token = loadAuthToken();
+    if (!token) return false;
+    
+    try {
+        const data = await apiRequest('/me');
+        currentUser = data;
         return true;
+    } catch (error) {
+        clearAuthToken();
+        return false;
     }
-    return false;
 }
 
 function showAuthScreen() {
@@ -955,19 +980,19 @@ function switchToLogin() {
     document.getElementById('loginForm').style.display = 'block';
 }
 
-function handleLogin(event) {
+async function handleLogin(event) {
     event.preventDefault();
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
     
-    if (login(email, password)) {
-        loadFromLocalStorage();
+    if (await login(email, password)) {
+        await loadFromServer();
         showDashboardScreen();
         renderDashboard();
     }
 }
 
-function handleRegister(event) {
+async function handleRegister(event) {
     event.preventDefault();
     const name = document.getElementById('registerName').value;
     const email = document.getElementById('registerEmail').value;
@@ -979,16 +1004,16 @@ function handleRegister(event) {
         return;
     }
     
-    if (register(name, email, password)) {
+    if (await register(name, email, password)) {
         document.getElementById('registerForm').reset();
         switchToLogin();
     }
 }
 
 // Inicialização
-document.addEventListener('DOMContentLoaded', function() {
-    if (checkAuth()) {
-        loadFromLocalStorage();
+document.addEventListener('DOMContentLoaded', async function() {
+    if (await checkAuth()) {
+        await loadFromServer();
         showDashboardScreen();
         renderDashboard();
     } else {
@@ -1033,7 +1058,7 @@ function closeImportModal() {
 }
 
 // CRUD Transações
-function saveTransaction(event) {
+async function saveTransaction(event) {
     event.preventDefault();
     
     const id = document.getElementById('transactionId').value;
@@ -1046,55 +1071,71 @@ function saveTransaction(event) {
     if (type === 'expense' && amount > 0) amount = -amount;
     if (type === 'income' && amount < 0) amount = Math.abs(amount);
     
-    if (id) {
-        const index = transactionsData.findIndex(t => t.id === id);
-        if (index !== -1) {
-            transactionsData[index] = {
-                ...transactionsData[index],
-                date,
-                description,
-                category,
-                amount
-            };
+    try {
+        if (id) {
+            // Editar
+            await apiRequest(`/transactions/${id}`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    date: date.toISOString(),
+                    description,
+                    category,
+                    amount,
+                    type: type === 'income' ? 'CREDIT' : 'DEBIT'
+                })
+            });
             showMessage('Transação atualizada com sucesso!', 'success');
+        } else {
+            // Adicionar
+            await apiRequest('/transactions', {
+                method: 'POST',
+                body: JSON.stringify({
+                    date: date.toISOString(),
+                    description,
+                    category,
+                    amount,
+                    type: type === 'income' ? 'CREDIT' : 'DEBIT'
+                })
+            });
+            showMessage('Transação adicionada com sucesso!', 'success');
         }
-    } else {
-        transactionsData.push({
-            id: Date.now().toString(),
-            date,
-            description,
-            category,
-            amount,
-            type: type === 'income' ? 'CREDIT' : 'DEBIT'
-        });
-        showMessage('Transação adicionada com sucesso!', 'success');
+        
+        await loadFromServer();
+        renderDashboard();
+        closeModal();
+    } catch (error) {
+        showMessage('Erro ao salvar: ' + error.message, 'error');
     }
-    
-    saveToLocalStorage();
-    renderDashboard();
-    closeModal();
 }
 
-function deleteTransaction(id) {
+async function deleteTransaction(id) {
     if (!confirm('Tem certeza que deseja excluir esta transação?')) return;
     
-    transactionsData = transactionsData.filter(t => t.id !== id);
-    saveToLocalStorage();
-    renderDashboard();
-    showMessage('Transação excluída com sucesso!', 'success');
+    try {
+        await apiRequest(`/transactions/${id}`, { method: 'DELETE' });
+        await loadFromServer();
+        renderDashboard();
+        showMessage('Transação excluída com sucesso!', 'success');
+    } catch (error) {
+        showMessage('Erro ao excluir: ' + error.message, 'error');
+    }
 }
 
-function clearAllData() {
+async function clearAllData() {
     if (!confirm('Tem certeza que deseja limpar TODAS as transações? Esta ação não pode ser desfeita!')) return;
     
-    transactionsData = [];
-    saveToLocalStorage();
-    renderDashboard();
-    showMessage('Todas as transações foram removidas!', 'success');
+    try {
+        await apiRequest('/transactions/clear', { method: 'DELETE' });
+        await loadFromServer();
+        renderDashboard();
+        showMessage('Todas as transações foram removidas!', 'success');
+    } catch (error) {
+        showMessage('Erro ao limpar dados: ' + error.message, 'error');
+    }
 }
 
 // Importar OFX
-function processOFXFile() {
+async function processOFXFile() {
     const fileInput = document.getElementById('ofxFile');
     const file = fileInput.files[0];
     
@@ -1106,24 +1147,21 @@ function processOFXFile() {
     document.getElementById('importLoading').style.display = 'block';
     
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = async function(e) {
         try {
             const ofxData = e.target.result;
             const newTransactions = parseOFX(ofxData);
             
-            let added = 0;
-            newTransactions.forEach(newTrn => {
-                const exists = transactionsData.some(t => t.id === newTrn.id);
-                if (!exists) {
-                    transactionsData.push(newTrn);
-                    added++;
-                }
+            // Enviar em lote para API
+            const result = await apiRequest('/transactions/bulk', {
+                method: 'POST',
+                body: JSON.stringify({ transactions: newTransactions })
             });
             
-            saveToLocalStorage();
+            await loadFromServer();
             renderDashboard();
             closeImportModal();
-            showMessage(`${added} transações importadas com sucesso!`, 'success');
+            showMessage(`${result.created} transações importadas com sucesso!`, 'success');
             
         } catch (error) {
             showMessage('Erro ao processar arquivo OFX: ' + error.message, 'error');
@@ -1164,16 +1202,16 @@ function parseOFX(ofxText) {
             const category = autoCategorize(description, amount);
             
             transactions.push({
-                date: new Date(year, month, day),
+                date: new Date(year, month, day).toISOString(),
                 description: description,
                 amount: amount,
                 type: trntype || 'OTHER',
-                id: fitid || Date.now().toString() + Math.random(),
+                external_id: fitid || Date.now().toString() + Math.random(),
                 category: category
             });
         }
         
-        return transactions.sort((a, b) => b.date - a.date);
+        return transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
         
     } catch (error) {
         console.error('Erro ao processar OFX:', error);
