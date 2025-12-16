@@ -1,0 +1,10 @@
+# Arquivos de dados e padrões aprendidos
+learned_patterns.json
+
+# Arquivos OFX de teste
+*.ofx
+*.OFX
+
+# Exports temporários
+*.csv
+*.xlsx

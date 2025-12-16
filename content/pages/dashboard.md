@@ -3,8 +3,14 @@ Date: 2025-12-16
 Slug: dashboard
 Summary: Análise inteligente de extratos bancários OFX
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+
 <div id="financial-dashboard">
     <style>
+        * {
+            box-sizing: border-box;
+        }
+        
         .dashboard-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -251,18 +257,112 @@ Summary: Análise inteligente de extratos bancários OFX
             opacity: 0.9;
         }
         
+        /* Responsividade Mobile */
         @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 1rem;
+            }
+            
+            .dashboard-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .dashboard-header p {
+                font-size: 0.95rem;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            
+            .metric-card {
+                padding: 1rem;
+            }
+            
+            .metric-value {
+                font-size: 1.5rem;
+            }
+            
             .charts-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .chart-card {
+                padding: 1rem;
+            }
+            
+            .filters {
+                flex-direction: column;
+            }
+            
+            .filter-group {
+                min-width: 100%;
             }
             
             .transactions-table {
-                font-size: 0.85rem;
+                font-size: 0.8rem;
             }
             
             .transactions-table th,
             .transactions-table td {
-                padding: 0.5rem;
+                padding: 0.5rem 0.3rem;
+            }
+            
+            .upload-section {
+                padding: 1.5rem 1rem;
+            }
+            
+            .file-input-label {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Responsividade Tablet */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .dashboard-container {
+                padding: 1.5rem;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Mobile muito pequeno */
+        @media (max-width: 480px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .metric-value {
+                font-size: 1.3rem;
+            }
+            
+            .transactions-table th:nth-child(3),
+            .transactions-table td:nth-child(3) {
+                display: none;
+            }
+        }
+        
+        /* Landscape mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .dashboard-header {
+                margin-bottom: 1.5rem;
+            }
+            
+            .upload-section {
+                padding: 1rem;
             }
         }
     </style>
