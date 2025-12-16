@@ -809,7 +809,11 @@ Summary: Gerencie suas finanças pessoais - Adicione, edite e importe transaçõ
 
 <script>
 // Configuração da API
-const API_URL = 'http://localhost:5000/api'; // Trocar para URL de produção
+// IMPORTANTE: Após fazer deploy da API, substitua pela URL da sua API na Vercel
+// Exemplo: const API_URL = 'https://api-financeiro-seu-usuario.vercel.app/api';
+const API_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:5000/api'
+    : 'https://api-financeiro.vercel.app/api'; // TROCAR PELA SUA URL
 let authToken = null;
 
 // Variáveis globais

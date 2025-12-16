@@ -8,10 +8,15 @@ import os
 from functools import wraps
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": ["*"]}})
 
 # Configurações
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///financeiro.db')
+database_url = os.getenv('DATABASE_URL', 'sqlite:///financeiro.db')
+# Vercel Postgres usa postgres:// mas SQLAlchemy precisa de postgresql://
+if database_url.startswith('postgres://'):
+    database_url = database_url.replace('postgres://', 'postgresql://', 1)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
 
@@ -309,7 +314,25 @@ def get_stats():
 def health():
     return jsonify({'status': 'ok', 'message': 'API Financeiro funcionando'}), 200
 
+@app.route('/', methods=['GET'])
+def index():
+    return jsonify({
+        'name': 'API Financeiro',
+        'version': '1.0.0',
+        'endpoints': [
+            '/api/health',
+            '/api/register',
+            '/api/login',
+            '/api/me',
+            '/api/transactions',
+            '/api/admin/users',
+            '/api/admin/stats'
+        ]
+    }), 200
+
+# Criar tabelas automaticamente
+with app.app_context():
+    db.create_all()
+
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True, port=5000)
