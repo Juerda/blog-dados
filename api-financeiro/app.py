@@ -101,33 +101,37 @@ def token_required(f):
 # Rotas de Autenticação
 @app.route('/api/register', methods=['POST'])
 def register():
-    data = request.get_json()
-    
-    # Validações
-    if not data.get('name') or not data.get('email') or not data.get('password'):
-        return jsonify({'error': 'Nome, email e senha são obrigatórios'}), 400
-    
-    if len(data['password']) < 6:
-        return jsonify({'error': 'Senha deve ter no mínimo 6 caracteres'}), 400
-    
-    # Verificar se email já existe
-    if User.query.filter_by(email=data['email']).first():
-        return jsonify({'error': 'Email já cadastrado'}), 409
-    
-    # Criar usuário
-    user = User(
-        name=data['name'],
-        email=data['email'],
-        password_hash=generate_password_hash(data['password'])
-    )
-    
-    db.session.add(user)
-    db.session.commit()
-    
-    return jsonify({
-        'message': 'Usuário criado com sucesso',
-        'user': user.to_dict()
-    }), 201
+    try:
+        data = request.get_json()
+        
+        # Validações
+        if not data.get('name') or not data.get('email') or not data.get('password'):
+            return jsonify({'error': 'Nome, email e senha são obrigatórios'}), 400
+        
+        if len(data['password']) < 6:
+            return jsonify({'error': 'Senha deve ter no mínimo 6 caracteres'}), 400
+        
+        # Verificar se email já existe
+        if User.query.filter_by(email=data['email']).first():
+            return jsonify({'error': 'Email já cadastrado'}), 409
+        
+        # Criar usuário
+        user = User(
+            name=data['name'],
+            email=data['email'],
+            password_hash=generate_password_hash(data['password'])
+        )
+        
+        db.session.add(user)
+        db.session.commit()
+        
+        return jsonify({
+            'message': 'Usuário criado com sucesso',
+            'user': user.to_dict()
+        }), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': f'Erro ao criar usuário: {str(e)}'}), 500
 
 @app.route('/api/login', methods=['POST'])
 def login():
