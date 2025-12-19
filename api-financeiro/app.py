@@ -18,13 +18,24 @@ database_url = os.getenv('POSTGRES_URL_NON_POOLING') or os.getenv('POSTGRES_URL'
 if database_url.startswith('postgres://'):
     database_url = database_url.replace('postgres://', 'postgresql://', 1)
 
-# Supabase requer SSL - adiciona automaticamente se não tiver
-if 'supabase.com' in database_url and 'sslmode' not in database_url:
-    database_url += '?sslmode=require' if '?' not in database_url else '&sslmode=require'
+# Supabase requer SSL e schema public
+if 'supabase.com' in database_url:
+    # Adiciona SSL se não tiver
+    if 'sslmode' not in database_url:
+        database_url += '?sslmode=require' if '?' not in database_url else '&sslmode=require'
+    # Adiciona schema public se não tiver
+    if 'options=' not in database_url:
+        separator = '&' if '?' in database_url else '?'
+        database_url += f'{separator}options=-c%20search_path%3Dpublic'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'connect_args': {'sslmode': 'require'}} if 'supabase.com' in database_url else {}
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    'connect_args': {
+        'sslmode': 'require',
+        'options': '-c search_path=public'
+    }
+} if 'supabase.com' in database_url else {}
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
 
 db = SQLAlchemy(app)
