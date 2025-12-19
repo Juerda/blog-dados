@@ -11,7 +11,9 @@ app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": ["*"]}})
 
 # Configurações
-database_url = os.getenv('DATABASE_URL', 'sqlite:///financeiro.db')
+# Tenta usar variáveis do Supabase Integration do Vercel primeiro, depois DATABASE_URL
+database_url = os.getenv('POSTGRES_URL_NON_POOLING') or os.getenv('POSTGRES_URL') or os.getenv('DATABASE_URL', 'sqlite:///financeiro.db')
+
 # Vercel Postgres usa postgres:// mas SQLAlchemy precisa de postgresql://
 if database_url.startswith('postgres://'):
     database_url = database_url.replace('postgres://', 'postgresql://', 1)
