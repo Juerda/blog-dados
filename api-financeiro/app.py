@@ -16,8 +16,13 @@ database_url = os.getenv('DATABASE_URL', 'sqlite:///financeiro.db')
 if database_url.startswith('postgres://'):
     database_url = database_url.replace('postgres://', 'postgresql://', 1)
 
+# Supabase requer SSL - adiciona automaticamente se não tiver
+if 'supabase.com' in database_url and 'sslmode' not in database_url:
+    database_url += '?sslmode=require' if '?' not in database_url else '&sslmode=require'
+
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'connect_args': {'sslmode': 'require'}} if 'supabase.com' in database_url else {}
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
 
 db = SQLAlchemy(app)
