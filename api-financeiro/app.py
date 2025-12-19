@@ -69,7 +69,7 @@ class Transaction(db.Model):
     __table_args__ = {'schema': 'public'}
     
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('public.users.id'), nullable=False, index=True)
     external_id = db.Column(db.String(100), index=True)  # FITID do OFX
     date = db.Column(db.Date, nullable=False, index=True)
     description = db.Column(db.String(255), nullable=False)
