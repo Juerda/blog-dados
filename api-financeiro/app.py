@@ -43,6 +43,7 @@ db = SQLAlchemy(app)
 # Modelos
 class User(db.Model):
     __tablename__ = 'users'
+    __table_args__ = {'schema': 'public'}
     
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -65,6 +66,7 @@ class User(db.Model):
 
 class Transaction(db.Model):
     __tablename__ = 'transactions'
+    __table_args__ = {'schema': 'public'}
     
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
